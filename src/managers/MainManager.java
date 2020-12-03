@@ -1,15 +1,15 @@
+package managers;
+
 import interfaces.*;
-import managers.*;
 import entities.*;
 import enums.*;
-
 import java.util.Date;
 import java.util.List;
 
 public class MainManager implements IMainManager
 {
 	//attributes
-
+	private static MainManager instance;
 	ProductManager productManager;
 	ItemManager itemManager;
 	ReservationManager reservationManager;
@@ -17,7 +17,7 @@ public class MainManager implements IMainManager
 
 	//methods
 
-	MainManager()
+	public MainManager()
 	{
 		//init managers
 		productManager = ProductManager.getInstance();
@@ -26,6 +26,7 @@ public class MainManager implements IMainManager
 		clientManager= ClientManager.getInstance();
 	}
 
+	//product
 	@Override
 	public Product searchProduct(int id_product)
 	{
@@ -62,6 +63,13 @@ public class MainManager implements IMainManager
 
 	}
 
+	//reservation
+	@Override
+	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList)
+	{
+
+	}
+
 	@Override
 	public Reservation searchReservation(int id_reservation)
 	{
@@ -74,6 +82,7 @@ public class MainManager implements IMainManager
 
 	}
 
+	//client
 	@Override
 	public Client searchClient(int id_client)
 	{
@@ -92,6 +101,7 @@ public class MainManager implements IMainManager
 
 	}
 
+	//items
 	@Override
 	public void addItem(int id_product)
 	{
@@ -104,10 +114,11 @@ public class MainManager implements IMainManager
 
 	}
 
-	@Override
-	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList)
+	//getters
+	public static MainManager getInstance()
 	{
-
+		if(instance==null) instance = new MainManager();
+		return instance;
 	}
 
 	//----------------------- handled by database ---------------------

@@ -4,9 +4,15 @@ public abstract class Entity
 {
 	//attributes
 
-	private int id;
+	protected int id;
+	private static int idCounter = 0;
 
 	//methods
+
+	Entity()
+	{
+		this.id = idCounter++;
+	}
 
 	public int getId()
 	{

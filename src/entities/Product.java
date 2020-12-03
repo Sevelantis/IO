@@ -13,7 +13,11 @@ public class Product extends Entity
 
 	public Product(String name, float price)
 	{
-		//TODO
+		this.name = name;
+		this.price = price;
+		System.out.println("id" + this.id);
+		System.out.println("name" + this.name);
+		System.out.println("price" + this.price);
 	}
 
 	public Item getItem(int id_item)

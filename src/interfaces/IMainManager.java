@@ -1,7 +1,9 @@
 package interfaces;
 
-import entities.*;
-import enums.*;
+import entities.Client;
+import entities.Product;
+import entities.Reservation;
+import enums.Status;
 
 import java.util.Date;
 import java.util.List;
@@ -22,18 +24,17 @@ public interface IMainManager
 	List<Product> searchProducts(String name);
 
 	/**
-	 * 
+	 *
 	 * @param price
 	 */
 	List<Product> searchProducts(float price);
 
 	/**
 	 * 
-	 * @param id_product
-	 * @param numberOfItems
+	 * @param name
 	 * @param price
 	 */
-	void addProduct(String id_product, int numberOfItems, float price);
+	public void addProduct(String name, float price);
 
 	/**
 	 * 

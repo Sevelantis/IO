@@ -30,25 +30,25 @@ public class MainManager implements IMainManager
 	@Override
 	public Product searchProduct(int id_product)
 	{
-		return null;
+		return productManager.get(id_product);
 	}
 
 	@Override
 	public List<Product> searchProducts(String name)
 	{
-		return null;
+		return productManager.search(name, 0);
 	}
 
 	@Override
 	public List<Product> searchProducts(float price)
 	{
-		return null;
+		return productManager.search("", price);
 	}
 
 	@Override
-	public void addProduct(String id_product, int numberOfItems, float price)
+	public void addProduct(String name, float price)//int numberOfItems...
 	{
-
+		productManager.add(new Product(name, price));
 	}
 
 	@Override

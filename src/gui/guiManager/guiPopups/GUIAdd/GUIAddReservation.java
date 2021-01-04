@@ -1,9 +1,9 @@
 package gui.guiManager.guiPopups.GUIAdd;
 
-import com.intellij.util.ui.JBUI;
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
+import gui.guiManager.guiPopups.GUIGetProduct;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -64,7 +64,7 @@ public class GUIAddReservation extends GUIObject
         //layout
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = JBUI.insets(5);
+        gbc.insets =  new Insets(5,5,5,5);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -104,7 +104,17 @@ public class GUIAddReservation extends GUIObject
         Object source = e.getSource();
         if (source == buttonSubmit)
         {
-            System.out.println("buttonSbumit");
+            System.out.println("buttonSubmit");
+        }
+        else if(source == buttonAddItem)//OK
+        {
+            cartProducts.add(GUIGetProduct.getProduct(this));
+            panelViewList.updateView();
+        }
+        else if(source == buttonRemoveItem)
+        {
+            cartProducts.remove(panelViewList.getSelectedIndex());
+            panelViewList.updateView();
         }
     }
 

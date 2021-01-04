@@ -1,5 +1,18 @@
 package entities;
 
+import java.util.List;
+import java.util.Vector;
+
+//todo do produktu moze jednak niekoniecznie useful.
+class ProductException extends Exception
+{
+	private static final long serialVersionUID = 1L;
+	public ProductException(String message)
+	{
+		super(message);
+	}
+}
+
 public class Product extends Entity
 {
 	//attributes
@@ -7,7 +20,7 @@ public class Product extends Entity
 	private String name;
 	private float price;
 	private int amountAvailable;
-	Item itemList;
+	List<Item> itemList=  new Vector<>();
 
 	//methods
 
@@ -15,25 +28,30 @@ public class Product extends Entity
 	{
 		this.name = name;
 		this.price = price;
-		System.out.println("id" + this.id);
-		System.out.println("name" + this.name);
-		System.out.println("price" + this.price);
+		toString();
 	}
 
 	public Item getItem(int id_item)
 	{
-		// TODO
+		for(Item i : itemList)
+			if(i.getId() == id_item)
+				return i;
 		return null;
 	}
 
 	public void addItem(Item item)
 	{
-		// TODO
+		itemList.add(item);
 	}
 
 	public void removeItem(Item item)
 	{
-		// TODO
+		itemList.remove(item);
+	}
+
+	public void removeItem(int id_item)
+	{
+		itemList.remove(id_item);
 	}
 
 	//getters
@@ -52,6 +70,14 @@ public class Product extends Entity
 	public float getPrice()
 	{
 		return this.price;
+	}
+
+	@Override
+	public String toString()
+	{
+		String str = "[Product: " + name + ", id: " + id + ", price: " + price + "]";
+		System.out.println(str);
+		return str;
 	}
 
 	//setters

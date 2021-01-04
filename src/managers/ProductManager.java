@@ -4,38 +4,34 @@ import interfaces.*;
 import entities.*;
 
 import java.util.List;
+import java.util.Vector;
 
 public class ProductManager implements IManager
 {
 	//attributes
 
 	private static ProductManager instance;
-	Product productList;
+	List<Product> productList = new Vector<>();
 
 	//methods
 
 	public void remove(int id_product)
 	{
-		// TODO
+		productList.remove(id_product); // remove at index
 	}
 
 	@Override
 	public void add(Object obj)
 	{
-		// TODO
+		productList.add(	(Product)obj	);
 	}
-
-	private void uploadFromDatabase()
-	{
-		//TODO intelligent DAO object
-	}
-
-	//getters
 
 	@Override
 	public Product get(int id_product)
 	{
-		//TODO
+		for (Product p : productList)
+			if(p.getId() == id_product)
+				return p;
 		return null;
 	}
 
@@ -57,4 +53,12 @@ public class ProductManager implements IManager
 	// methods handled by database -------------
 	// .
 
+	//DB
+	private void uploadFromDatabase()
+	{
+		//my tylko robimy logike biznesową, a nie połączenie z bazą :)
+		//TODO
+	}
+
+	//getters
 }

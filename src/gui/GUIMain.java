@@ -1,7 +1,10 @@
 package gui;
 
+import entities.Product;
 import gui.guiManager.GUIManagerReservation;
+import gui.guiManager.guiPopups.GUIGetProduct;
 import managers.MainManager;
+import managers.ProductManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +19,7 @@ public class GUIMain extends JFrame implements ActionListener
 
 
     //attributes
-    private MainManager manager = new MainManager();
+    private MainManager manager;
     private JDialog guiManager = null;
 
     //JPanel
@@ -33,6 +36,12 @@ public class GUIMain extends JFrame implements ActionListener
         initFrame();
         initButtons();
         addActionListeners();
+        manager = new MainManager();
+
+        //fake populate
+        for(int i = 0 ; i < 100 ; i++ )
+            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0)));
+
     }
 
     private void addActionListeners()

@@ -20,7 +20,7 @@ public class Product extends Entity
 	private String name;
 	private float price;
 	private int amountAvailable;
-	List<Item> itemList=  new Vector<>();
+	List<Item> itemList = new Vector<>();
 
 	//methods
 

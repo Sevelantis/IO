@@ -1,40 +1,54 @@
 package managers;
 
-import interfaces.*;
-import entities.*;
+import entities.Item;
+import entities.Product;
+import interfaces.IManager;
+
+import java.util.List;
+import java.util.Vector;
 
 public class ItemManager implements IManager
 {
 	//attributes
 
 	private static ItemManager instance;
-	Item itemList;
+	List<Item> itemList = new Vector<>();
 
 	//methods
 
 	public void remove(int id_item)
 	{
-		//TODO
+		for (Item item:	itemList) {
+			if(item.getId() == id_item)
+			{
+				itemList.remove(item);
+				break;
+			}
+		}
 	}
 
 	@Override
 	public void add(Object obj)
 	{
-
+		itemList.add((Item) obj);
 	}
 
 	//getters
 
 	public Item get(int id_item)
 	{
-		//TODO
+		for (Item item: itemList) {
+			if( item.getId() == id_item)
+				return item;
+		}
 		return null;
 	}
 
 
 	public static ItemManager getInstance()
 	{
-		if(instance == null) instance = new ItemManager();
+		if(instance == null)
+			instance = new ItemManager();
 		return instance;
 	}
 

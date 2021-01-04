@@ -17,7 +17,13 @@ public class ProductManager implements IManager
 
 	public void remove(int id_product)
 	{
-		productList.remove(id_product); // remove at index
+		for (Product c: productList) {
+			if( c.getId() == id_product)
+			{
+				productList.remove(c);
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -35,10 +41,29 @@ public class ProductManager implements IManager
 		return null;
 	}
 
+	/*
+		* Metoda wyszukiwania na podstawie dwóch parametrów
+	*/
 	public List<Product> search(String name, float price)
 	{
-		// TODO
-		return null;
+		List<Product> interest = new Vector<>();
+		if( price == 0)
+		{
+			for (Product c: productList) {
+				if( c.getName().equals(name))
+				{
+					interest.add(c);
+				}
+			}
+		}
+		else
+			for (Product c: productList) {
+				if( c.getPrice() == price)
+				{
+					interest.add(c);
+				}
+			}
+		return interest;
 	}
 
 	public static ProductManager getInstance()

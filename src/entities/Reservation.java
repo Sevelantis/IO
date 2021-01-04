@@ -9,18 +9,21 @@ public class Reservation extends Entity
 {
 	//attributes
 
-	private int id_client;
+	private final int id_client;
 	private Date dateStart;
 	private Date dateEnd;
 	private float price;
 	private Status status;
-	Item itemList;
+	private final List<Item> itemList;
 
 	//methods
 
 	public Reservation(int id_client, Date dateEnd, Date dateStart, List<Item> items)
 	{
-		// TODO
+		this.id_client = id_client;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
+		this.itemList = items;
 	}
 
 	//getters
@@ -32,8 +35,7 @@ public class Reservation extends Entity
 
 	public List<Item> getItems()
 	{
-		// TODO
-		return null;
+		return itemList;
 	}
 
 	public Date getDateStart()

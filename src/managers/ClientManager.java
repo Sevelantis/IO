@@ -1,7 +1,11 @@
 package managers;
 
-import interfaces.*;
-import entities.*;
+import entities.Client;
+import interfaces.IManager;
+
+import java.util.List;
+import java.util.Vector;
+
 /*
 	@note	There is no remove client method available
  */
@@ -10,14 +14,14 @@ public class ClientManager implements IManager
 	//attributes
 
 	private static ClientManager instance;
-	Client clientList;
+	List<Client> clientList = new Vector<>();
 
 	//methods
 
 	@Override
 	public void add(Object obj)
 	{
-		// TODO
+		clientList.add((Client) obj);
 	}
 
 	//getters
@@ -25,13 +29,17 @@ public class ClientManager implements IManager
 	@Override
 	public Client get(int id_client)
 	{
-		// TODO
+		for (Client c: clientList) {
+			if( c.getId() == id_client)
+				return c;
+		}
 		return null;
 	}
 
 	public static ClientManager getInstance()
 	{
-		if(instance == null) instance = new ClientManager();
+		if(instance == null)
+			instance = new ClientManager();
 		return instance;
 	}
 

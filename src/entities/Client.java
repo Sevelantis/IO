@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Vector;
 
 public class Client extends Entity
 {
@@ -10,19 +11,23 @@ public class Client extends Entity
 	private String lastName;
 	private String phoneNr;
 	private String email;
-	Reservation reservationList;
+	//	Reservation reservationList;
+	List<Reservation> reservationList = new Vector<>();
 
 	//methods
 
 	public Client(String firstName, String lastName, String phoneNr, String email)
 	{
-		// TODO
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNr = phoneNr;
+		this.email = email;
 	}
 
 
-	public void addReservation(int id_reservation)
+	public void addReservation(Reservation reservation)
 	{
-		// TODO
+		reservationList.add(reservation);
 	}
 
 	//getters
@@ -47,34 +52,29 @@ public class Client extends Entity
 		return this.email;
 	}
 
-	public List<Integer> getReservationList()
+	public List<Reservation> getReservationList()
 	{
-		// TODO
-		return null;
+		return reservationList;
 	}
 
 	//setters
 
 	public void setFirstName(String firstName)
-
 	{
 		this.firstName = firstName;
 	}
 
 	public void setLastName(String lastName)
-
 	{
 		this.lastName = lastName;
 	}
 
 	public void setPhoneNr(String phoneNr)
 	{
-
 		this.phoneNr = phoneNr;
 	}
 
 	public void setEmail(String email)
-
 	{
 		this.email = email;
 	}

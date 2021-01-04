@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product extends Entity
 {
 	//attributes
@@ -7,29 +10,35 @@ public class Product extends Entity
 	private String name;
 	private float price;
 	private int amountAvailable;
-	Item itemList;
+//	Item itemList;
+	List<Item> itemList;
 
 	//methods
 
 	public Product(String name, float price)
 	{
-		//TODO
+		this.name = name;
+		this.price = price;
+		itemList = new ArrayList<>();
 	}
 
 	public Item getItem(int id_item)
 	{
-		// TODO
+		for (Item i: itemList) {
+			if(i.getId() == id_item)
+				return i;
+		}
 		return null;
 	}
 
 	public void addItem(Item item)
 	{
-		// TODO
+		itemList.add(item);
 	}
 
 	public void removeItem(Item item)
 	{
-		// TODO
+		itemList.remove(item);
 	}
 
 	//getters

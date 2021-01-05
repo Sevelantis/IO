@@ -51,17 +51,13 @@ public class ProductManager implements IManager
 		{
 			for (Product c: productList) {
 				if( c.getName().equals(name))
-				{
 					interest.add(c);
-				}
 			}
 		}
 		else
 			for (Product c: productList) {
 				if( c.getPrice() == price)
-				{
 					interest.add(c);
-				}
 			}
 		return interest;
 	}

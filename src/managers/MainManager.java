@@ -60,7 +60,7 @@ public class MainManager implements IMainManager
 	@Override
 	public void removeProduct(int id_product)
 	{
-
+		productManager.remove(id_product);
 	}
 
 	//reservation
@@ -79,7 +79,7 @@ public class MainManager implements IMainManager
 	@Override
 	public void returnReservation(int id_reservation)
 	{
-
+		reservationManager.get(id_reservation);
 	}
 
 	//client
@@ -92,20 +92,24 @@ public class MainManager implements IMainManager
 	@Override
 	public void addClient(String firstName, String lastName, String phoneNr, String email)
 	{
-
+		clientManager.add(new Client(firstName, lastName, phoneNr, email));
 	}
 
 	@Override
 	public void modifyClient(int id_client, String firstName, String lastName, String phoneNr, String email)
 	{
-
+		Client client = clientManager.get(id_client);
+		client.setFirstName(firstName);
+		client.setLastName(lastName);
+		client.setPhoneNr(phoneNr);
+		client.setEmail(email);
 	}
 
 	//items
 	@Override
 	public void addItem(int id_product)
 	{
-
+		itemManager.buildItems(productManager.get(id_product));
 	}
 
 	@Override

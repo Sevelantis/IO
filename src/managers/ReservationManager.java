@@ -1,27 +1,34 @@
 package managers;
 
-import interfaces.*;
-import entities.*;
+import entities.Reservation;
+import interfaces.IManager;
+
+import java.util.List;
+import java.util.Vector;
 
 public class ReservationManager implements IManager
 {
 	//attributes
 
 	private static ReservationManager instance;
-	Reservation reservationList;
+	List<Reservation> reservationList = new Vector<>();
 
 	//methods
 
 	@Override
 	public void add(Object obj)
 	{
-
+		reservationList.add((Reservation) obj);
 	}
 
 	@Override
 	public Reservation get(int id_reservation)
 	{
-		// TODO
+		for(Reservation reservation : reservationList)
+			if(reservation.getId() == id_reservation) {
+				reservationList.remove(reservation);
+				break;
+			}
 		return null;
 	}
 

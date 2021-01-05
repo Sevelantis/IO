@@ -28,7 +28,6 @@ public class Product extends Entity
 	{
 		this.name = name;
 		this.price = price;
-		toString();
 	}
 
 	public Item getItem(int id_item)

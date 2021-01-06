@@ -54,7 +54,10 @@ public class MainManager implements IMainManager
 	@Override
 	public void modifyProduct(int id_product, String name, int numberOfItems, float price)
 	{
-
+		Product product = productManager.get(id_product);
+		product.setName(name);
+		product.setPrice(price);
+		// TODO użyć amountAvailable i numberOfItems
 	}
 
 	@Override
@@ -67,12 +70,17 @@ public class MainManager implements IMainManager
 	@Override
 	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList)
 	{
-
+		// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
+		// TODO dlaczemu nie ma id_wypożyczającego
+		// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
+		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
+		//reservationManager.add(new Reservation(id_reservation, dateStart, dateEnd, ids_itemList));
 	}
 
 	@Override
 	public Reservation searchReservation(int id_reservation)
 	{
+		//TODo
 		return null;
 	}
 
@@ -86,6 +94,7 @@ public class MainManager implements IMainManager
 	@Override
 	public Client searchClient(int id_client)
 	{
+		//TODo
 		return null;
 	}
 
@@ -109,13 +118,13 @@ public class MainManager implements IMainManager
 	@Override
 	public void addItem(int id_product)
 	{
-		itemManager.buildItems(productManager.get(id_product));
+		itemManager.add(new Item(id_product));
 	}
 
 	@Override
 	public void removeItem(int id_item)
 	{
-
+		Item item = itemManager.get(id_item);
 	}
 
 	//getters

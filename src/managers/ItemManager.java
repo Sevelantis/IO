@@ -35,6 +35,7 @@ public class ItemManager implements IManager
 
 	//getters
 
+	@Override
 	public Item get(int id_item)
 	{
 		for (Item item: itemList) {

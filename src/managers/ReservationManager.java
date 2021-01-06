@@ -34,7 +34,14 @@ public class ReservationManager implements IManager
 
 	public void generateAgreement(int id_reservation)
 	{
-		// TODO
+		Reservation reservation;
+		for(Reservation r : reservationList)
+			if(r.getId() == id_reservation) {
+				reservation = r;
+				break;
+			}
+
+		// TODO tworzenie pliku umowy
 	}
 
 	//getters

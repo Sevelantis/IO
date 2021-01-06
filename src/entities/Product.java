@@ -19,7 +19,7 @@ public class Product extends Entity
 
 	private String name;
 	private float price;
-	private int amountAvailable;
+	private int amountAvailable; // TODO WTF trzeba zamontować użycie tego czegoś np napioszać kilka metod oraz gety i sety
 	List<Item> itemList = new Vector<>();
 
 	//methods
@@ -28,6 +28,7 @@ public class Product extends Entity
 	{
 		this.name = name;
 		this.price = price;
+		this.amountAvailable = 0;
 	}
 
 	public Item getItem(int id_item)

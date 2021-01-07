@@ -12,7 +12,7 @@ public class ItemManager implements IManager
 	//attributes
 
 	private static ItemManager instance;
-	List<Item> itemList = new Vector<>();
+	public List<Item> itemList = new Vector<>();
 
 	//methods
 

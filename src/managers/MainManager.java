@@ -3,6 +3,8 @@ package managers;
 import interfaces.*;
 import entities.*;
 import enums.*;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -46,9 +48,11 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public void addProduct(String name, float price)//int numberOfItems...
+	public void addProduct(String name, float price, int numberOfItems)
 	{
-		productManager.add(new Product(name, price));
+		Product product = new Product(name, price);
+		productManager.add(product);
+		addItems(product.getId(), numberOfItems);
 	}
 
 	@Override
@@ -68,13 +72,37 @@ public class MainManager implements IMainManager
 
 	//reservation
 	@Override
-	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList)
+	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status s, List<Integer> ids_itemList)
 	{
+
+
+
+
 		// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
 		// TODO dlaczemu nie ma id_wypożyczającego
 		// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
 		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
 		//reservationManager.add(new Reservation(id_reservation, dateStart, dateEnd, ids_itemList));
+
+		/////// Do wywalenia test
+
+		Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
+		addProduct("Zabawkowe Narty", (float) 15.99, 5);
+		addProduct("Pistolet maszynowy RKM", (float) 2999.99, 6);
+		addProduct("Hamburger 100% plastik", (float) 4.99, 9);
+
+		Reservation res = new Reservation(client.getId(), new Date(2019, 12, 10), new Date(2020, 12, 10),
+				itemManager.itemList);
+
+		try {
+			reservationManager.createAgreementFile(res);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		///////
+
+
 	}
 
 	@Override
@@ -119,6 +147,7 @@ public class MainManager implements IMainManager
 	public void addItem(int id_product)
 	{
 		itemManager.add(new Item(id_product));
+		//todo
 	}
 
 	@Override
@@ -130,8 +159,17 @@ public class MainManager implements IMainManager
 	//getters
 	public static MainManager getInstance()
 	{
-		if(instance==null) instance = new MainManager();
+		if(instance==null)
+			instance = new MainManager();
 		return instance;
+	}
+
+	@Override
+	public void addItems(int id_product, int numberOfItems)
+	{
+		for (int i = 0; i < numberOfItems; i++) {
+			itemManager.add(new Item(id_product));
+		}
 	}
 
 	//----------------------- handled by database ---------------------
@@ -144,12 +182,6 @@ public class MainManager implements IMainManager
 
 	@Override
 	public void removeItems(List<Integer> ids_itemList)
-	{
-
-	}
-
-	@Override
-	public void addItems(int id_product, int numberOfItems)
 	{
 
 	}

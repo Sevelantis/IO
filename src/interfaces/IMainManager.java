@@ -33,8 +33,9 @@ public interface IMainManager
 	 * 
 	 * @param name
 	 * @param price
+	 * @param numberOfItems
 	 */
-	public void addProduct(String name, float price);
+	void addProduct(String name, float price, int numberOfItems);
 
 	/**
 	 * 

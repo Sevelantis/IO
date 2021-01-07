@@ -1,9 +1,9 @@
 package interfaces;
 
 import entities.Client;
+import entities.Item;
 import entities.Product;
 import entities.Reservation;
-import enums.Status;
 
 import java.util.Date;
 import java.util.List;
@@ -33,8 +33,9 @@ public interface IMainManager
 	 * 
 	 * @param name
 	 * @param price
+	 * @param numberOfItems
 	 */
-	public void addProduct(String name, float price);
+	public void addProduct(String name, float price, int numberOfItems);
 
 	/**
 	 * 
@@ -58,14 +59,13 @@ public interface IMainManager
 	Reservation searchReservation(int id_reservation);
 
 	/**
-	 * 
-	 * @param id_reservation
+	 *
+	 * @param id_client
 	 * @param dateStart
 	 * @param dateEnd
-	 * @param status
-	 * @param ids_itemList
+	 * @param itemList
 	 */
-	void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList);
+	public void addReservation(int id_client, Date dateStart, Date dateEnd, List<Item> itemList);
 
 	/**
 	 * 

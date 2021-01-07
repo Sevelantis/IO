@@ -1,5 +1,7 @@
 package entities;
 
+import enums.Condition;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -15,20 +17,24 @@ class ProductException extends Exception
 
 public class Product extends Entity
 {
+	private static int idCounter = 0;
 	//attributes
 
 	private String name;
 	private float price;
-	private int amountAvailable; // TODO WTF trzeba zamontować użycie tego czegoś np napioszać kilka metod oraz gety i sety
+	private int numberOfItems;
 	List<Item> itemList = new Vector<>();
 
 	//methods
 
-	public Product(String name, float price)
+	public Product(String name, float price, int numberOfItems)
 	{
+		this.id = idCounter++;
 		this.name = name;
 		this.price = price;
-		this.amountAvailable = 0;
+		this.numberOfItems = numberOfItems;
+		//TODO na potrzebe symulacji należy tworzyc odpowiednie egzemplarze produktow
+		initAddItems();
 	}
 
 	public Item getItem(int id_item)
@@ -54,12 +60,72 @@ public class Product extends Entity
 		itemList.remove(id_item);
 	}
 
+	//private
+
+	private void initAddItems()
+	{
+		for(int i=0; i < numberOfItems; i++)
+			addItem(new Item(this.id));
+	}
+
 	//getters
 
-	public int getAmountTotal()
+	public int getNumberOfItems()
 	{
-		// TODO
-		return amountAvailable + 452151515;
+		return numberOfItems;
+	}
+
+	public int getNumberOfAvailableItems()
+	{
+		int numberOfAvailableItems = 0;
+		for (Item i : itemList)
+			if(i.getId_reservation() == -1 && i.getCondition() == Condition.dobry)	//egzemplarze niewypozyczone i dobre = egzemplarze dostepne
+				numberOfAvailableItems++;
+
+		return numberOfAvailableItems;
+	}
+
+	public int getNumberOfReservedItems()
+	{
+		int numberOfReservedItems = 0;
+		for(Item i: itemList)
+		{
+			if(i.getId_reservation() != -1) // zliczaj egzemplarze wypozyczone
+				numberOfReservedItems++;
+		}
+
+		return numberOfReservedItems;
+	}
+
+	public boolean isAvailable()
+	{
+		if(getNumberOfAvailableItems() > 0 )
+			return true;
+		return false;
+	}
+
+	public void reserveInCart()
+	{
+		for(Item i : itemList)	//ten kod rezerwuje pierwszy znaleziony egzemplarz ktory jest niezarezerwowany i dobry.
+			if(i.getId_reservation() == -1 && i.getCondition() == Condition.dobry)
+			{
+				i.reserveItem(-2);	//poniewaz rezerwacja tworzona bedzie po zakonczeniu rezerwacji w koszyku
+												// 	jest brak rezerwacji
+												// 		wprowadzono tymczasowe id_rezerwacji = -2
+												//			ktore oznacza, ze egzemplarz znajduje sie w koszyku
+												//				wartosc ta zostanie nadpisana w momencie stworzenia faktycznej rezerwacji
+				break;
+			}
+	}
+
+	public void returnInCart()	//return	// ten kod zwalnia pierwszy znaleziony egzemplarz ktory aktualnie jest w koszyku
+	{
+		for(Item i : itemList)
+			if(i.getId_reservation() == -2)	//warunek bycia w koszyku
+			{
+				i.returnItem();	//ustawia id rezerwacji na -1
+				break;
+			}
 	}
 
 	public String getName()

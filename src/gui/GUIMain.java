@@ -2,7 +2,6 @@ package gui;
 
 import entities.Product;
 import gui.guiManager.GUIManagerReservation;
-import gui.guiManager.guiPopups.GUIGetProduct;
 import managers.MainManager;
 import managers.ProductManager;
 
@@ -40,8 +39,7 @@ public class GUIMain extends JFrame implements ActionListener
 
         //fake populate
         for(int i = 0 ; i < 100 ; i++ )
-            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0)));
-
+            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0), i/10 +2));
     }
 
     private void addActionListeners()

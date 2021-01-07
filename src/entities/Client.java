@@ -5,6 +5,7 @@ import java.util.Vector;
 
 public class Client extends Entity
 {
+	private static int idCounter = 0;
 	//attributes
 
 	private String firstName;
@@ -18,6 +19,7 @@ public class Client extends Entity
 
 	public Client(String firstName, String lastName, String phoneNr, String email)
 	{
+		this.id = idCounter++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNr = phoneNr;

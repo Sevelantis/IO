@@ -1,8 +1,11 @@
 package managers;
 
-import interfaces.*;
-import entities.*;
-import enums.*;
+import entities.Client;
+import entities.Item;
+import entities.Product;
+import entities.Reservation;
+import interfaces.IMainManager;
+
 import java.util.Date;
 import java.util.List;
 
@@ -46,9 +49,9 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public void addProduct(String name, float price)//int numberOfItems...
+	public void addProduct(String name, float price, int numberOfItems)
 	{
-		productManager.add(new Product(name, price));
+		productManager.add(new Product(name, price, numberOfItems));
 	}
 
 	@Override
@@ -68,13 +71,15 @@ public class MainManager implements IMainManager
 
 	//reservation
 	@Override
-	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList)
+	public void addReservation(int id_client, Date dateStart, Date dateEnd, List<Item> itemList)
 	{
 		// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
-		// TODO dlaczemu nie ma id_wypożyczającego
+			//zmienilem, makes more sense
 		// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
+			//usunalem, bylo tak jak mowisz
 		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
-		//reservationManager.add(new Reservation(id_reservation, dateStart, dateEnd, ids_itemList));
+			//id_client, to mialo byc id_client
+		reservationManager.add(new Reservation(id_client, dateStart, dateEnd, itemList));
 	}
 
 	@Override
@@ -137,6 +142,12 @@ public class MainManager implements IMainManager
 	//----------------------- handled by database ---------------------
 
 	@Override
+	public void addItems(int id_product, int numberOfItems)
+	{
+
+	}
+
+	@Override
 	public void changeConditionItems(List<Integer> ids_itemList)
 	{
 
@@ -147,11 +158,4 @@ public class MainManager implements IMainManager
 	{
 
 	}
-
-	@Override
-	public void addItems(int id_product, int numberOfItems)
-	{
-
-	}
-
 }

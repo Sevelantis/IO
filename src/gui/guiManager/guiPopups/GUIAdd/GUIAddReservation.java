@@ -4,6 +4,7 @@ import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
 import gui.guiManager.guiPopups.GUIGetProduct;
+import managers.ProductManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -54,12 +55,16 @@ public class GUIAddReservation extends GUIObject
         buttonSubmit.setText("OK");
         textFieldClientId.setMinimumSize(new Dimension(120, 20));
 
-        //fake populate todo
+        //todo testing
+        //fake populate
 //        ProductManager.getInstance().add(new Product("Kostium hipopotama", (float)9.99));
 //        cartProducts.add(ProductManager.getInstance().get(0));
-        cartProducts.add(new Product("Kostium hipopotama", (float)9.99));
-        cartProducts.add(new Product("Kostium nosorożca", (float)93.99));
-        cartProducts.add(new Product("Kostium Dartha Vadera z czerwonym mieczem świetlnym", (float)955.99));
+        addProductToCart(ProductManager.getInstance().get(33));
+        addProductToCart(ProductManager.getInstance().get(44));
+        addProductToCart(ProductManager.getInstance().get(55));
+        addProductToCart(ProductManager.getInstance().get(55));
+        addProductToCart(ProductManager.getInstance().get(55));
+        //todo testing
 
         //layout
         panel.setLayout(new GridBagLayout());
@@ -94,7 +99,6 @@ public class GUIAddReservation extends GUIObject
         gbc.ipadx = 100;
         panel.add(buttonSubmit, gbc);
 
-        //todo
         panelViewList.updateView();
     }
 
@@ -105,16 +109,27 @@ public class GUIAddReservation extends GUIObject
         if (source == buttonSubmit)
         {
             System.out.println("buttonSubmit");
+            //TODO
         }
         else if(source == buttonAddItem)//OK
         {
-            cartProducts.add(GUIGetProduct.getProduct(this));
+            addProductToCart(GUIGetProduct.getProduct(this));
             panelViewList.updateView();
         }
         else if(source == buttonRemoveItem)
         {
-            cartProducts.remove(panelViewList.getSelectedIndex());
-            panelViewList.updateView();
+            int selectedIndex = panelViewList.getSelectedIndex();
+            Product selectedProduct = cartProducts.get(selectedIndex);
+
+            if(cartProducts.contains(selectedProduct))  //warunek bycia w koszyku
+            {
+                selectedProduct.returnInCart();
+                if(selectedProduct.getNumberOfReservedItems() == 0) //jesli usunieto ostatni egzemplarz
+                {
+                    cartProducts.remove(selectedIndex);
+                }
+                panelViewList.updateView();
+            }
         }
     }
 
@@ -135,8 +150,8 @@ public class GUIAddReservation extends GUIObject
 
         PanelViewList()
         {
-            setMinimumSize(new Dimension(300, 200));//todo
-            String[] header = {"ID", "nazwa", "cena"};
+            setMinimumSize(new Dimension(300, 200));
+            String[] header = {"ID", "nazwa", "cena", "ilość"};
             tableModel = new DefaultTableModel(header, 0);
             setBorder(BorderFactory.createTitledBorder("Egzemplarze w koszyku:"));
 
@@ -162,7 +177,7 @@ public class GUIAddReservation extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Float.toString(p.getPrice())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(), Float.toString(p.getPrice()), Integer.toString(p.getNumberOfReservedItems())};
                     tableModel.addRow(row);
                 }
             }
@@ -177,6 +192,19 @@ public class GUIAddReservation extends GUIObject
                 JOptionPane.showMessageDialog(this, "Zaznacz wiersz.", "Błąd.", JOptionPane.ERROR_MESSAGE);
             }
             return index;
+        }
+    }
+
+    private void addProductToCart(Product product)
+    {
+        if(product.isAvailable())
+        {
+            if(!cartProducts.contains(product))
+                cartProducts.add(product);
+            product.reserveInCart();
+        }else
+        {
+            JOptionPane.showMessageDialog(this, "Brak dostępnych egzemplarzy.", "Błąd.", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Reservation extends Entity
 {
+	private static int idCounter = 0;
 	//attributes
 
 	private final int id_client;
@@ -20,6 +21,7 @@ public class Reservation extends Entity
 
 	public Reservation(int id_client, Date dateEnd, Date dateStart, List<Item> items)
 	{
+		this.id = idCounter++;
 		this.id_client = id_client;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;

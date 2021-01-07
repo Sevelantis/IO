@@ -4,28 +4,31 @@ import enums.Condition;
 
 public class Item extends Entity
 {
+	private static int idCounter = 0;
 	//attributes
 
 	private int id_product;
-	private int id_reservation;
+	private int id_reservation = -1; //-1 znaczy, ze egzemplarz nie jest wypozyczony
 	private Condition condition;
 
 	//methods
 
 	public Item(int id_product)
 	{
-		// TODO
+		this.id = idCounter++;
+		this.id_product = id_product;
+		this.condition = Condition.dobry; //domyslnie kazdy jest dobry
 	}
 
 
 	public void reserveItem(int id_reservation)
 	{
-		// TODO
+		this.id_reservation = id_reservation;
 	}
 
 	public void returnItem()
 	{
-		// TODO
+		this.id_reservation = -1;
 	}
 
 	//getters

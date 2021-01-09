@@ -1,6 +1,7 @@
 package entities;
 
 import enums.Condition;
+import managers.ItemManager;
 
 import java.util.List;
 import java.util.Vector;
@@ -48,8 +49,6 @@ public class Product extends Entity
 	public void addItem(Item item)
 	{
 		itemList.add(item);
-		++this.amountAvailable;
-
 		//produkt:
 
 
@@ -71,6 +70,9 @@ public class Product extends Entity
 	{
 		for(int i=0; i < numberOfItems; i++)
 			addItem(new Item(this.id));
+
+		for(Item i : itemList)
+			ItemManager.getInstance().add(i);
 	}
 
 	//getters

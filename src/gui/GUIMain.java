@@ -1,12 +1,10 @@
 package gui;
 
 import entities.Client;
+import entities.Product;
 import entities.Reservation;
 import gui.guiManager.GUIManagerReservation;
-import managers.ClientManager;
-import managers.ItemManager;
-import managers.MainManager;
-import managers.ReservationManager;
+import managers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +42,7 @@ public class GUIMain extends JFrame implements ActionListener
 
         //fake populate
         for(int i = 0 ; i < 100 ; i++ )
-            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0)));
+            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0), 3 + i/6));
 
         Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
         ClientManager.getInstance().add(client);

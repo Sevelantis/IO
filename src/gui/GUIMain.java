@@ -1,14 +1,19 @@
 package gui;
 
-import entities.Product;
+import entities.Client;
+import entities.Reservation;
 import gui.guiManager.GUIManagerReservation;
+import managers.ClientManager;
+import managers.ItemManager;
 import managers.MainManager;
-import managers.ProductManager;
+import managers.ReservationManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Date;
 
 public class GUIMain extends JFrame implements ActionListener
 {
@@ -39,7 +44,24 @@ public class GUIMain extends JFrame implements ActionListener
 
         //fake populate
         for(int i = 0 ; i < 100 ; i++ )
-            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0), i/10 +2));
+            ProductManager.getInstance().add(new Product(Integer.toHexString(i),(float)(i+i/10.0)));
+
+        Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
+        ClientManager.getInstance().add(client);
+        MainManager mm = new MainManager();
+        MainManager.getInstance().addProduct("Zabawkowe Narty", (float) 15.99, 5);
+        MainManager.getInstance().addProduct("Pistolet maszynowy RKM", (float) 2999.99, 6);
+        MainManager.getInstance().addProduct("Hamburger 100% plastik", (float) 4.99, 9);
+
+        Reservation res = new Reservation(client.getId(), new Date(2019, 12, 10), new Date(2020, 12, 10),
+                ItemManager.getInstance().itemList);
+
+        try {
+            ReservationManager.getInstance().createAgreementFile(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void addActionListeners()

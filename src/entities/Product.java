@@ -48,6 +48,11 @@ public class Product extends Entity
 	public void addItem(Item item)
 	{
 		itemList.add(item);
+		++this.amountAvailable;
+
+		//produkt:
+
+
 	}
 
 	public void removeItem(Item item)

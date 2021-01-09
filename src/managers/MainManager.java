@@ -1,11 +1,10 @@
 package managers;
 
-import entities.Client;
-import entities.Item;
-import entities.Product;
-import entities.Reservation;
-import interfaces.IMainManager;
+import interfaces.*;
+import entities.*;
+import enums.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -51,7 +50,12 @@ public class MainManager implements IMainManager
 	@Override
 	public void addProduct(String name, float price, int numberOfItems)
 	{
-		productManager.add(new Product(name, price, numberOfItems));
+		//TODO konflikt merge
+		Product product = new Product(name, price, numberOfItems);
+		productManager.add(product);
+		for (int i = 0; i < numberOfItems; i++) {
+			itemManager.add(new Item(product.getId()));
+		}
 	}
 
 	@Override
@@ -79,7 +83,14 @@ public class MainManager implements IMainManager
 			//usunalem, bylo tak jak mowisz
 		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
 			//id_client, to mialo byc id_client
-		reservationManager.add(new Reservation(id_client, dateStart, dateEnd, itemList));
+		Reservation reservation = new Reservation(id_client, dateStart, dateEnd, itemList);
+
+		reservationManager.add(reservation);
+		try {
+			reservationManager.createAgreementFile(reservation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -124,6 +135,7 @@ public class MainManager implements IMainManager
 	public void addItem(int id_product)
 	{
 		itemManager.add(new Item(id_product));
+		//todo
 	}
 
 	@Override
@@ -142,12 +154,6 @@ public class MainManager implements IMainManager
 	//----------------------- handled by database ---------------------
 
 	@Override
-	public void addItems(int id_product, int numberOfItems)
-	{
-
-	}
-
-	@Override
 	public void changeConditionItems(List<Integer> ids_itemList)
 	{
 
@@ -158,4 +164,11 @@ public class MainManager implements IMainManager
 	{
 
 	}
+
+	@Override
+	public void addItems(int id_product, int numberOfItems)
+	{
+
+	}
+
 }

@@ -7,6 +7,7 @@ import enums.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 public class MainManager implements IMainManager
 {
@@ -71,38 +72,36 @@ public class MainManager implements IMainManager
 	}
 
 	//reservation
+	// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
+	// TODO dlaczemu nie ma id_wypożyczającego
+	// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
+	// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
+	//reservationManager.add(new Reservation(id_reservation, dateStart, dateEnd, ids_itemList));
 	@Override
-	public void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status s, List<Integer> ids_itemList)
+	public void addReservation(int id_client, Date dateStart, Date dateEnd, Status s, List<Integer> ids_itemList)
 	{
+		// TODO isCorect
 
+		List<Item> items = new Vector<>();
 
+		for (int i: ids_itemList) {
+			for (Item item : itemManager.itemList)
+				if( item.getId() == i)
+				{
+					items.add(item);
+					break;
+				}
+		}
 
+		Reservation res = new Reservation(id_client, dateStart, dateEnd, items);
 
-		// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
-		// TODO dlaczemu nie ma id_wypożyczającego
-		// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
-		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
-		//reservationManager.add(new Reservation(id_reservation, dateStart, dateEnd, ids_itemList));
-
-		/////// Do wywalenia test
-
-		Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
-		addProduct("Zabawkowe Narty", (float) 15.99, 5);
-		addProduct("Pistolet maszynowy RKM", (float) 2999.99, 6);
-		addProduct("Hamburger 100% plastik", (float) 4.99, 9);
-
-		Reservation res = new Reservation(client.getId(), new Date(2019, 12, 10), new Date(2020, 12, 10),
-				itemManager.itemList);
+		reservationManager.add(res);
 
 		try {
 			reservationManager.createAgreementFile(res);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		///////
-
-
 	}
 
 	@Override

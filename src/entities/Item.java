@@ -14,7 +14,7 @@ public class Item extends Entity
 
 	public Item(int id_product)
 	{
-		// TODO
+		this.id_product = id_product;
 	}
 
 

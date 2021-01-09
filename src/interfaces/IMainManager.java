@@ -66,7 +66,7 @@ public interface IMainManager
 	 * @param status
 	 * @param ids_itemList
 	 */
-	void addReservation(int id_reservation, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList);
+	void addReservation(int id_client, Date dateStart, Date dateEnd, Status status, List<Integer> ids_itemList);
 
 	/**
 	 * 

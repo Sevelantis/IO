@@ -1,8 +1,10 @@
 package managers;
 
-import interfaces.*;
-import entities.*;
-import enums.*;
+import entities.Client;
+import entities.Item;
+import entities.Product;
+import entities.Reservation;
+import interfaces.IMainManager;
 
 import java.io.IOException;
 import java.util.Date;
@@ -51,11 +53,9 @@ public class MainManager implements IMainManager
 	public void addProduct(String name, float price, int numberOfItems)
 	{
 		//TODO konflikt merge
-		Product product = new Product(name, price, numberOfItems);
+		Product product = new Product(name, price);
 		productManager.add(product);
-		for (int i = 0; i < numberOfItems; i++) {
-			itemManager.add(new Item(product.getId()));
-		}
+		addItems(product.getId(), numberOfItems);
 	}
 
 	@Override
@@ -151,6 +151,18 @@ public class MainManager implements IMainManager
 		return instance;
 	}
 
+	@Override
+	//TODO na potrzebe symulacji należy tworzyc odpowiednie egzemplarze produktow
+	public void addItems(int id_product, int numberOfItems)
+	{
+		for (int i = 0; i < numberOfItems; i++)
+		{
+			Item item = new Item(id_product);
+			itemManager.add(item);
+			productManager.get(id_product).addItem(item);
+		}
+	}
+
 	//----------------------- handled by database ---------------------
 
 	@Override
@@ -161,12 +173,6 @@ public class MainManager implements IMainManager
 
 	@Override
 	public void removeItems(List<Integer> ids_itemList)
-	{
-
-	}
-
-	@Override
-	public void addItems(int id_product, int numberOfItems)
 	{
 
 	}

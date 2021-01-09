@@ -12,10 +12,10 @@ import java.awt.event.ActionEvent;
 public class GUIGetProduct extends GUIObject
 {
     //constants
-    private final String TITLE = "Dodawanie Egzemplarza";
+    private final String TITLE = "Dodawanie egzemplarza produktu";
 
     //JLabel
-    private JLabel labelProductId = new JLabel("ID egzemplarza: ");
+    private JLabel labelProductId = new JLabel("ID produktu: ");
 
     //JButton
     private JButton buttonOk = new JButton();//for OK purposes

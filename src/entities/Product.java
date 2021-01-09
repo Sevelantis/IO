@@ -1,20 +1,19 @@
 package entities;
 
 import enums.Condition;
-import managers.ItemManager;
 
 import java.util.List;
 import java.util.Vector;
 
-//todo do produktu moze jednak niekoniecznie useful.
-class ProductException extends Exception
-{
-	private static final long serialVersionUID = 1L;
-	public ProductException(String message)
-	{
-		super(message);
-	}
-}
+////todo? do produktu moze jednak niekoniecznie useful.
+//class ProductException extends Exception
+//{
+//	private static final long serialVersionUID = 1L;
+//	public ProductException(String message)
+//	{
+//		super(message);
+//	}
+//}
 
 public class Product extends Entity
 {
@@ -23,19 +22,15 @@ public class Product extends Entity
 
 	private String name;
 	private float price;
-	private int numberOfItems;
 	List<Item> itemList = new Vector<>();
 
 	//methods
 
-	public Product(String name, float price, int numberOfItems)
+	public Product(String name, float price)
 	{
 		this.id = idCounter++;
 		this.name = name;
 		this.price = price;
-		this.numberOfItems = numberOfItems;
-		//TODO na potrzebe symulacji należy tworzyc odpowiednie egzemplarze produktow
-		initAddItems();
 	}
 
 	public Item getItem(int id_item)
@@ -49,9 +44,6 @@ public class Product extends Entity
 	public void addItem(Item item)
 	{
 		itemList.add(item);
-		//produkt:
-
-
 	}
 
 	public void removeItem(Item item)
@@ -64,23 +56,7 @@ public class Product extends Entity
 		itemList.remove(id_item);
 	}
 
-	//private
-
-	private void initAddItems()
-	{
-		for(int i=0; i < numberOfItems; i++)
-			addItem(new Item(this.id));
-
-		for(Item i : itemList)
-			ItemManager.getInstance().add(i);
-	}
-
 	//getters
-
-	public int getNumberOfItems()
-	{
-		return numberOfItems;
-	}
 
 	public int getNumberOfAvailableItems()
 	{
@@ -106,9 +82,7 @@ public class Product extends Entity
 
 	public boolean isAvailable()
 	{
-		if(getNumberOfAvailableItems() > 0 )
-			return true;
-		return false;
+		return getNumberOfAvailableItems() > 0;
 	}
 
 	public void reserveInCart()

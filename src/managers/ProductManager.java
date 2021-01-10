@@ -11,7 +11,7 @@ public class ProductManager implements IManager
 	//attributes
 
 	private static ProductManager instance;
-	List<Product> productList = new Vector<>();
+	public List<Product> productList = new Vector<>();
 
 	//methods
 

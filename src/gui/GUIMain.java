@@ -3,6 +3,7 @@ package gui;
 import entities.Client;
 import entities.Product;
 import entities.Reservation;
+import gui.guiManager.GUIManagerProducts;
 import gui.guiManager.GUIManagerReservation;
 import managers.*;
 
@@ -104,7 +105,7 @@ public class GUIMain extends JFrame implements ActionListener
         else if(source == buttonManageProducts)
         {
             System.out.println("Manage Products");
-//            new GUIProducts();
+            guiManager = new GUIManagerProducts(this);
         }
         else if(source == buttonManageClients)
         {

@@ -48,6 +48,13 @@ public class Item extends Entity
 		return this.condition;
 	}
 
+	public String toString()
+	{
+		String str = "[Product ID: " + id_product + ", Item ID: " + id + ", Reservation ID: " + id_reservation +
+				", Condition = " + condition + "]";
+		return str;
+	}
+
 	//setters
 
 	public void setCondition(Condition condition)

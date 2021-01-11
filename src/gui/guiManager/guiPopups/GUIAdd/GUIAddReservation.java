@@ -1,16 +1,23 @@
 package gui.guiManager.guiPopups.GUIAdd;
 
+import entities.Item;
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
 import gui.guiManager.guiPopups.GUIGetProduct;
-import managers.ProductManager;
+import managers.MainManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 public class GUIAddReservation extends GUIObject
 {
@@ -24,9 +31,13 @@ public class GUIAddReservation extends GUIObject
 
     //JLabel
     private JLabel labelClientId = new JLabel("ID klienta:");
+    private JLabel labelDateStart = new JLabel("Data początku: (yyyy-mm-dd)");
+    private JLabel labelDateEnd = new JLabel("Data końca: (yyyy-mm-dd)");
 
     //JTextField
     private JTextField textFieldClientId = new JTextField(10);
+    private JTextField textFieldDateStart = new JTextField(10);
+    private JTextField textFieldDateEnd = new JTextField(10);
 
     //panelViewList
     ArrayList<Product> cartProducts = new ArrayList<>();
@@ -38,7 +49,7 @@ public class GUIAddReservation extends GUIObject
         super(parent);
         addActionListeners();
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 150, TITLE);
+        initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 250, TITLE);
     }
 
     @Override
@@ -54,17 +65,10 @@ public class GUIAddReservation extends GUIObject
     {
         buttonSubmit.setText("OK");
         textFieldClientId.setMinimumSize(new Dimension(120, 20));
-
-        //todo testing
-        //fake populate
-//        ProductManager.getInstance().add(new Product("Kostium hipopotama", (float)9.99));
-//        cartProducts.add(ProductManager.getInstance().get(0));
-        addProductToCart(ProductManager.getInstance().get(33));
-        addProductToCart(ProductManager.getInstance().get(44));
-        addProductToCart(ProductManager.getInstance().get(55));
-        addProductToCart(ProductManager.getInstance().get(55));
-        addProductToCart(ProductManager.getInstance().get(55));
-        //todo testing
+        textFieldDateStart.setMinimumSize(new Dimension(120, 20));
+        textFieldDateEnd.setMinimumSize(new Dimension(120, 20));
+        textFieldDateStart.setText(String.valueOf(LocalDate.now(ZoneId.of("Poland"))));
+        textFieldDateEnd.setText(String.valueOf(LocalDate.now(ZoneId.of("Poland")).plusDays(7)));
 
         //layout
         panel.setLayout(new GridBagLayout());
@@ -95,6 +99,22 @@ public class GUIAddReservation extends GUIObject
 
         gbc.gridx = 0;
         gbc.gridy = 3;
+        panel.add(labelDateStart, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(textFieldDateStart, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(labelDateEnd, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        panel.add(textFieldDateEnd, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         gbc.ipadx = 100;
         panel.add(buttonSubmit, gbc);
@@ -106,10 +126,49 @@ public class GUIAddReservation extends GUIObject
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();
+
         if (source == buttonSubmit)
         {
-            System.out.println("buttonSubmit");
-            //TODO
+            if (textFieldClientId.getText().equals("") ||
+                    textFieldDateStart.getText().equals("") ||
+                    textFieldDateEnd.getText().equals(""))
+            {
+                JOptionPane.showMessageDialog(this, "Wypełnij puste pola!");
+                return;
+            }
+            if(cartProducts.isEmpty())
+            {
+                JOptionPane.showMessageDialog(this, "Koszyk jest pusty!");
+                return;
+            }
+            try
+            {
+                List<Item> itemList = new Vector<>();
+                for(Product product : cartProducts)
+                {
+                    for(Item item : product.getItems())
+                        if(item.getId_reservation() == -2)
+                            itemList.add(item);
+                }
+
+                if(MainManager.getInstance().searchClient(Integer.parseInt(textFieldClientId.getText())) == null)
+                {
+                    JOptionPane.showMessageDialog(this, "Nie znaleziono klienta!");
+                    return;
+                }
+
+                MainManager.getInstance().addReservation(Integer.parseInt(textFieldClientId.getText()),
+                        new SimpleDateFormat("yyyy-MM-dd").parse(textFieldDateStart.getText()),
+                        new SimpleDateFormat("yyyy-MM-dd").parse(textFieldDateEnd.getText()),
+                        itemList);
+
+                dispose();
+            }
+            catch(NumberFormatException | ParseException ex)
+            {
+                JOptionPane.showMessageDialog(this,
+                        "Wypelnij poprawne dane!", "Wypelnij poprawne dane!", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else if(source == buttonAddItem)//OK
         {

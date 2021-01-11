@@ -30,7 +30,7 @@ public class ItemManager implements IManager
 	@Override
 	public void add(Object obj)
 	{
-		itemList.add((Item) obj);
+		itemList.add(	(Item) obj	);
 	}
 
 	//getters

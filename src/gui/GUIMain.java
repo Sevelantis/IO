@@ -1,10 +1,12 @@
 package gui;
 
 import entities.Client;
-import entities.Product;
 import entities.Reservation;
 import gui.guiManager.GUIManagerReservation;
-import managers.*;
+import managers.ClientManager;
+import managers.ItemManager;
+import managers.MainManager;
+import managers.ReservationManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,9 +45,7 @@ public class GUIMain extends JFrame implements ActionListener
         //fake populate
         for(int i = 0 ; i < 100 ; i++ )
         {
-            Product product = new Product(Integer.toHexString(i),(float)(i+i/10.0));
-            ProductManager.getInstance().add(product);
-            MainManager.getInstance().addItems(product.getId(), 3 + i/6);
+            MainManager.getInstance().addProduct(Integer.toHexString(i), (float)(i+i/10.0), 3 + i/6);
         }
 
         Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
@@ -63,7 +63,6 @@ public class GUIMain extends JFrame implements ActionListener
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void addActionListeners()

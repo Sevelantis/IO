@@ -77,18 +77,19 @@ public class MainManager implements IMainManager
 	@Override
 	public void addReservation(int id_client, Date dateStart, Date dateEnd, List<Item> itemList)
 	{
-		// TODO w ogóle czemu tutaj jest List< --->>Integer <<<---  > ids_itemList, a nie List<Items>
-			//zmienilem, makes more sense
-		// TODO w ogóle po cholere tutaj jest wprowadzany status jak to miało chyba być wprowadzone właśnie w tej funkcji??????
-			//usunalem, bylo tak jak mowisz
-		// TODO dlaczego id_reservation jest argumentem metody jak to też ma być w tej funkcji nadawane chyba (albo nie, wytłumacz mi)
-			//id_client, to mialo byc id_client
 		Reservation reservation = new Reservation(id_client, dateStart, dateEnd, itemList);
-
 		reservationManager.add(reservation);
-		try {
+
+		//rezerwacja egzemplarzy z koszyka
+		for(Item item : itemList)
+			item.reserveItem(reservation.getId());
+
+		try
+		{
 			reservationManager.createAgreementFile(reservation);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -96,8 +97,7 @@ public class MainManager implements IMainManager
 	@Override
 	public Reservation searchReservation(int id_reservation)
 	{
-		//TODo
-		return null;
+		return reservationManager.get(id_reservation);
 	}
 
 	@Override
@@ -110,8 +110,7 @@ public class MainManager implements IMainManager
 	@Override
 	public Client searchClient(int id_client)
 	{
-		//TODo
-		return null;
+		return clientManager.get(id_client);
 	}
 
 	@Override
@@ -141,6 +140,7 @@ public class MainManager implements IMainManager
 	@Override
 	public void removeItem(int id_item)
 	{
+		//todo
 		Item item = itemManager.get(id_item);
 	}
 

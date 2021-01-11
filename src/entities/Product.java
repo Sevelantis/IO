@@ -99,7 +99,7 @@ public class Product extends Entity
 			}
 	}
 
-	public void returnInCart()	//return	// ten kod zwalnia pierwszy znaleziony egzemplarz ktory aktualnie jest w koszyku
+	public void  returnInCart()	//return	// ten kod zwalnia pierwszy znaleziony egzemplarz ktory aktualnie jest w koszyku
 	{
 		for(Item i : itemList)
 			if(i.getId_reservation() == -2)	//warunek bycia w koszyku
@@ -119,11 +119,15 @@ public class Product extends Entity
 		return this.price;
 	}
 
+	public List<Item> getItems()
+	{
+		return this.itemList;
+	}
+
 	@Override
 	public String toString()
 	{
 		String str = "[Product: " + name + ", id: " + id + ", price: " + price + "]";
-		System.out.println(str);
 		return str;
 	}
 

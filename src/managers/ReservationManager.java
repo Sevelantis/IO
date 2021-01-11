@@ -24,7 +24,7 @@ public class ReservationManager implements IManager
 	@Override
 	public void add(Object obj)
 	{
-		reservationList.add((Reservation) obj);
+		reservationList.add(	(Reservation) obj	);
 	}
 
 	@Override

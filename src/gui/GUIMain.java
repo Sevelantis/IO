@@ -18,7 +18,7 @@ public class GUIMain extends JFrame implements ActionListener
 {
     //constants
     public static final int WIDTH_WINDOW = 300;
-    public static final int HEIGHT_WINDOW = 200;
+    public static final int HEIGHT_WINDOW = 250;
 
 
     //attributes
@@ -81,11 +81,11 @@ public class GUIMain extends JFrame implements ActionListener
         // -- read products form file --
 
         // example reservations.
-        MainManager.getInstance().addReservation(0, new Date(120, 12, 10), new Date(120, 12, 17),
+        MainManager.getInstance().addReservation(4, new Date(120, 12, 10), new Date(120, 12, 17),
                 ProductManager.getInstance().get(1).getItems());
-        MainManager.getInstance().addReservation(1, new Date(120, 11, 22), new Date(120, 11, 29),
+        MainManager.getInstance().addReservation(5, new Date(120, 11, 22), new Date(120, 11, 29),
                 ProductManager.getInstance().get(2).getItems());
-        MainManager.getInstance().addReservation(2, new Date(120, 9, 9), new Date(120, 9, 16),
+        MainManager.getInstance().addReservation(22, new Date(120, 9, 9), new Date(120, 9, 16),
                 ProductManager.getInstance().get(3).getItems());
         }
 

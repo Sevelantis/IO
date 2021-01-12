@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups;
+package gui.guiManager.guiPopups.GUIReservations;
 
 import entities.Client;
 import entities.Reservation;
@@ -20,7 +20,7 @@ public class GUIReturnReservation extends GUIObject
     private final String TITLE = "Zwrot Rezerwacji";
 
     //variables
-    private final int cntrRowsReservation = 4;
+    private final int cntrRowsReservation = 6;
     private final int cntrRowsClient = 5;
     private boolean isReadyToSubmit = false;
     private Reservation reservation = null;
@@ -29,7 +29,9 @@ public class GUIReturnReservation extends GUIObject
             "id_rezerwacji: ",
             "id_client:",
             "dateStart:",
-            "dateEnd:"
+            "dateEnd:",
+            "cena:",
+            "status:"
     };
 
     private final String[] rowsClient = {
@@ -132,7 +134,7 @@ public class GUIReturnReservation extends GUIObject
         panel.add(new JLabel("Rezerwacja :"), gbc);
         gbc.gridwidth = 1;
 
-        //reservation object columns 9-12
+        //reservation object columns 9-14
         for (int i =0 ; i < cntrRowsReservation; i++)
         {
             //left
@@ -155,7 +157,7 @@ public class GUIReturnReservation extends GUIObject
         }
 
         gbc.gridx = 0;
-        gbc.gridy = 13;
+        gbc.gridy = 15;
         gbc.gridwidth = 2;
         panel.add(buttonSubmit, gbc);
     }
@@ -211,11 +213,6 @@ public class GUIReturnReservation extends GUIObject
                 }
 
                 // wyswietl dane rezerwacji i klienta ktory jej dokonał
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                textFieldsReservation[0].setText(String.valueOf(reservation.getId()));
-                textFieldsReservation[1].setText(String.valueOf(reservation.getId_client()));
-                textFieldsReservation[2].setText(dateFormat.format(reservation.getDateStart()));
-                textFieldsReservation[3].setText(dateFormat.format(reservation.getDateEnd()));
 
                 Client client = ClientManager.getInstance().get(reservation.getId_client());
                 textFieldsClient[0].setText(String.valueOf(client.getId()));
@@ -223,6 +220,14 @@ public class GUIReturnReservation extends GUIObject
                 textFieldsClient[2].setText(client.getLastName());
                 textFieldsClient[3].setText(client.getPhoneNr());
                 textFieldsClient[4].setText(client.getEmail());
+
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                textFieldsReservation[0].setText(String.valueOf(reservation.getId()));
+                textFieldsReservation[1].setText(String.valueOf(reservation.getId_client()));
+                textFieldsReservation[2].setText(dateFormat.format(reservation.getDateStart()));
+                textFieldsReservation[3].setText(dateFormat.format(reservation.getDateEnd()));
+                textFieldsReservation[4].setText(String.format("%.2f", reservation.getPrice()));
+                textFieldsReservation[5].setText(String.valueOf(reservation.getStatus()));
 
                 isReadyToSubmit = true;
             }

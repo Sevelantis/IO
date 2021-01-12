@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups.GUIAdd;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import gui.GUIMain;
 import gui.guiManager.GUIObject;

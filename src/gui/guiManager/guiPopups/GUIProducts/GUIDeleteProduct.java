@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups.GIUDelete;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import entities.Product;
 import gui.GUIMain;
@@ -77,9 +77,18 @@ public class GUIDeleteProduct extends GUIObject
 
             if(cartProducts.contains(selectedProduct))
             {
-                MainManager.getInstance().removeProduct(selectedProduct.getId());
-                cartProducts.remove(selectedIndex);
-                panelViewList.updateView();
+                if(selectedProduct.getNumberOfReservedItems() == 0)
+                {
+                    MainManager.getInstance().removeProduct(selectedProduct.getId());
+                    cartProducts.remove(selectedIndex);
+                    panelViewList.updateView();
+                }
+                else
+                    JOptionPane.showMessageDialog(null,
+                            "Nie mozna usunąć produktu!\n" +
+                                    "Nadal są wypożyczone egzemplarze!", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+
             }
         }
     }
@@ -128,7 +137,7 @@ public class GUIDeleteProduct extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(), String.format("%.2f",p.getPrice())};
                     tableModel.addRow(row);
                 }
             }

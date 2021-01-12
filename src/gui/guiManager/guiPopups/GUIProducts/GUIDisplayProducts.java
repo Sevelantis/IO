@@ -1,9 +1,8 @@
-package gui.guiManager.guiPopups;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
-import managers.MainManager;
 import managers.ProductManager;
 
 import javax.swing.*;
@@ -19,22 +18,20 @@ public class GUIDisplayProducts extends GUIObject
 
     //panelViewList
     ArrayList<Product> cartProducts = new ArrayList<>();
-    GUIDisplayProducts .PanelViewList panelViewList = new GUIDisplayProducts .PanelViewList();
+    PanelViewList panelViewList = new PanelViewList();
 
     //methods
     public GUIDisplayProducts (Window parent)
     {
         super(parent);
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 150, TITLE);
+        initDialog(GUIMain.WIDTH_WINDOW+400, GUIMain.HEIGHT_WINDOW + 200, TITLE);
     }
 
     @Override
     public void initComponents()
     {
-        MainManager.getInstance();
-
-        for (Product product: ProductManager.getInstance().getProductList())
+        for(Product product: ProductManager.getInstance().getProductList())
             if(!cartProducts.contains(product))
                 cartProducts.add(product);
 
@@ -84,8 +81,8 @@ public class GUIDisplayProducts extends GUIObject
 
         PanelViewList()
         {
-            setMinimumSize(new Dimension(300, 200));
-            String[] header = {"ID", "nazwa", "cena", "liczba egzemplarzy", "liczba dostępnych egzemplarzy"};
+            setMinimumSize(new Dimension(600, 300));
+            String[] header = {"ID", "nazwa", "cena[zł]", "liczba egzemplarzy", "liczba dostępnych egzemplarzy"};
             tableModel = new DefaultTableModel(header, 0);
             setBorder(BorderFactory.createTitledBorder("Produkty:"));
 
@@ -111,7 +108,7 @@ public class GUIDisplayProducts extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice()),
+                    String[] row = {Integer.toString(p.getId()), p.getName(), String.format("%.2f", p.getPrice()),
                             Integer.toString(p.getItemListSize()), Integer.toString(p.getNumberOfAvailableItems())};
                     tableModel.addRow(row);
                 }

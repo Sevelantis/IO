@@ -1,8 +1,9 @@
 package gui.guiManager;
 
 import gui.GUIMain;
-import gui.guiManager.guiPopups.GUIAdd.GUIAddReservation;
-import gui.guiManager.guiPopups.GUIReturnReservation;
+import gui.guiManager.guiPopups.GUIReservations.GUIAddReservation;
+import gui.guiManager.guiPopups.GUIReservations.GUIDisplayReservations;
+import gui.guiManager.guiPopups.GUIReservations.GUIReturnReservation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class GUIManagerReservation extends GUIObject
         super(parent);
         addActionListeners();
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW-15, GUIMain.HEIGHT_WINDOW, TITLE);
+        initDialog(GUIMain.WIDTH_WINDOW-15, GUIMain.HEIGHT_WINDOW+50, TITLE);
     }
 
     //Overrides
@@ -39,7 +40,7 @@ public class GUIManagerReservation extends GUIObject
     {
         panel.setLayout(new GridLayout(3,1,20,20));
         buttonAdd.setText("Dodaj Rezerwacje");
-        buttonDisplayAll.setText("Wyszukaj Rezerwacje");
+        buttonDisplayAll.setText("Wyświetl wszystkie");
 
         panel.add(buttonAdd);
         panel.add(buttonDisplayAll);
@@ -56,8 +57,7 @@ public class GUIManagerReservation extends GUIObject
         }
         else if(source == buttonDisplayAll)
         {
-
-            System.out.println("buttonSearch");
+            new GUIDisplayReservations(this);
         }
         else if(source == buttonReturn)
         {

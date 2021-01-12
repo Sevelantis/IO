@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import entities.Product;
 import gui.GUIMain;
@@ -129,7 +129,7 @@ public class GUIUpdateProduct extends GUIObject
                     return;
                 }
                 textFieldsProduct[0].setText(product.getName());
-                textFieldsProduct[1].setText(Double.toString(product.getPrice()));
+                textFieldsProduct[1].setText(String.format("%.2f", product.getPrice()));
                 textFieldProductId.setEditable(false);
             }
             catch(NumberFormatException ex)

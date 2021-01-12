@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import entities.Product;
 import gui.GUIMain;

@@ -15,7 +15,7 @@ public class Reservation extends Entity
 	private Date dateEnd;
 	private double price;
 	private Status status;
-	private final List<Item> itemList;
+	private List<Item> itemList;
 
 	//methods
 
@@ -31,18 +31,13 @@ public class Reservation extends Entity
 
 	public void ret()
 	{
-		// rezerwacja - cena = 0,
 		// Itemlist = null,
 		// status = zakonczono
 		status = Status.zakonczony;
-		setPrice(0.0);
 
 		//zwrot egzemplarzy
-
 		for(Item item : itemList)
 			item.returnItem();
-
-		itemList.clear();
 	}
 
 	//getters

@@ -1,10 +1,10 @@
 package gui.guiManager;
 
 import gui.GUIMain;
-import gui.guiManager.guiPopups.GIUDelete.GUIDeleteProduct;
-import gui.guiManager.guiPopups.GUIAdd.GUIAddProduct;
-import gui.guiManager.guiPopups.GUIDisplayProducts;
-import gui.guiManager.guiPopups.GUIUpdateProduct;
+import gui.guiManager.guiPopups.GUIProducts.GUIDeleteProduct;
+import gui.guiManager.guiPopups.GUIProducts.GUIAddProduct;
+import gui.guiManager.guiPopups.GUIProducts.GUIDisplayProducts;
+import gui.guiManager.guiPopups.GUIProducts.GUIUpdateProduct;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class GUIManagerProducts extends GUIObject
         super(parent);
         addActionListeners();
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW-15, GUIMain.HEIGHT_WINDOW, TITLE);
+        initDialog(GUIMain.WIDTH_WINDOW-15, GUIMain.HEIGHT_WINDOW + 100, TITLE);
     }
 
     //Overrides

@@ -4,6 +4,7 @@ import entities.Client;
 import entities.Item;
 import entities.Product;
 import entities.Reservation;
+import enums.Status;
 import interfaces.IMainManager;
 
 import java.io.IOException;
@@ -52,7 +53,6 @@ public class MainManager implements IMainManager
 	@Override
 	public void addProduct(String name, float price, int numberOfItems)
 	{
-		//TODO konflikt merge
 		Product product = new Product(name, price);
 		productManager.add(product);
 		addItems(product.getId(), numberOfItems);
@@ -78,11 +78,17 @@ public class MainManager implements IMainManager
 	public void addReservation(int id_client, Date dateStart, Date dateEnd, List<Item> itemList)
 	{
 		Reservation reservation = new Reservation(id_client, dateStart, dateEnd, itemList);
-		reservationManager.add(reservation);
 
+		double price = 0.0;
 		//rezerwacja rezerwowanych egzemplarzy
 		for(Item item : itemList)
+		{
 			item.reserveItem(reservation.getId());
+			price += productManager.get(item.getId_product()).getPrice();
+		}
+
+		reservation.setPrice(price);
+		reservationManager.add(reservation);
 
 		try
 		{
@@ -101,9 +107,18 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public void returnReservation(int id_reservation)
+	public boolean returnReservation(int id_reservation)
 	{
-		reservationManager.get(id_reservation);
+		Reservation reservation = reservationManager.get(id_reservation);
+
+		// zwrot rezerwacji
+		if(reservation.getStatus() == Status.aktywny)
+		{
+			reservation.ret();
+			return true;
+		}
+		else
+			return false;
 	}
 
 	//client

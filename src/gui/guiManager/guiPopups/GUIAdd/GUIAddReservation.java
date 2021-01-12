@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -49,6 +51,18 @@ public class GUIAddReservation extends GUIObject
         super(parent);
         addActionListeners();
         initComponents();
+
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosed(WindowEvent e)
+            {
+                cartProducts.clear();
+                panelViewList.updateView();
+                super.windowClosed(e);
+            }
+        });
+
         initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 250, TITLE);
     }
 
@@ -238,7 +252,7 @@ public class GUIAddReservation extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Float.toString(p.getPrice()), Integer.toString(p.getNumberOfReservedItems())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice()), Integer.toString(p.getNumberOfReservedItems())};
                     tableModel.addRow(row);
                 }
             }
@@ -268,4 +282,5 @@ public class GUIAddReservation extends GUIObject
             JOptionPane.showMessageDialog(this, "Brak dostępnych egzemplarzy.", "Błąd.", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 }

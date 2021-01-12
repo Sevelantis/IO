@@ -21,12 +21,12 @@ public class Product extends Entity
 	//attributes
 
 	private String name;
-	private float price;
+	private double price;
 	List<Item> itemList = new Vector<>();
 
 	//methods
 
-	public Product(String name, float price)
+	public Product(String name, double price)
 	{
 		this.id = idCounter++;
 		this.name = name;
@@ -114,7 +114,7 @@ public class Product extends Entity
 		return this.name;
 	}
 
-	public float getPrice()
+	public double getPrice()
 	{
 		return this.price;
 	}
@@ -133,7 +133,6 @@ public class Product extends Entity
 	public String toString()
 	{
 		String str = "[Product: " + name + ", id: " + id + ", price: " + price + "]";
-		System.out.println(str);
 		return str;
 	}
 

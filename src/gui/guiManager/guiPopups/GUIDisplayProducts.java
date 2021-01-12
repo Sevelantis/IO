@@ -111,7 +111,7 @@ public class GUIDisplayProducts extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Float.toString(p.getPrice()),
+                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice()),
                             Integer.toString(p.getItemListSize()), Integer.toString(p.getNumberOfAvailableItems())};
                     tableModel.addRow(row);
                 }

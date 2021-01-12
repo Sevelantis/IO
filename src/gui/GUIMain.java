@@ -3,7 +3,6 @@ package gui;
 import filereader.FileHelper;
 import gui.guiManager.GUIManagerProducts;
 import gui.guiManager.GUIManagerReservation;
-import gui.guiManager.guiPopups.GUIReturnReservation;
 import managers.MainManager;
 import managers.ProductManager;
 
@@ -45,6 +44,7 @@ public class GUIMain extends JFrame implements ActionListener
         //fake populate
         simulateData();
 
+//        new GUIReturnReservation(this);
     }
 
     private void addActionListeners()
@@ -81,11 +81,11 @@ public class GUIMain extends JFrame implements ActionListener
         // -- read products form file --
 
         // example reservations.
-        MainManager.getInstance().addReservation(0, new Date(2019, 12, 10), new Date(2020, 12, 17),
+        MainManager.getInstance().addReservation(0, new Date(120, 12, 10), new Date(120, 12, 17),
                 ProductManager.getInstance().get(1).getItems());
-        MainManager.getInstance().addReservation(1, new Date(2019, 11, 22), new Date(2020, 12, 29),
+        MainManager.getInstance().addReservation(1, new Date(120, 11, 22), new Date(120, 11, 29),
                 ProductManager.getInstance().get(2).getItems());
-        MainManager.getInstance().addReservation(2, new Date(2019, 9, 9), new Date(2020, 9, 16),
+        MainManager.getInstance().addReservation(2, new Date(120, 9, 9), new Date(120, 9, 16),
                 ProductManager.getInstance().get(3).getItems());
         }
 

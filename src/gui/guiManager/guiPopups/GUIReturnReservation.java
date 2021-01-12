@@ -1,12 +1,18 @@
 package gui.guiManager.guiPopups;
 
+import entities.Client;
+import entities.Reservation;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
+import managers.ClientManager;
+import managers.MainManager;
 import managers.ReservationManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class GUIReturnReservation extends GUIObject
 {
@@ -16,6 +22,8 @@ public class GUIReturnReservation extends GUIObject
     //variables
     private final int cntrRowsReservation = 4;
     private final int cntrRowsClient = 5;
+    private boolean isReadyToSubmit = false;
+    private Reservation reservation = null;
 
     private final String[] rowsReservation = {
             "id_rezerwacji: ",
@@ -158,12 +166,31 @@ public class GUIReturnReservation extends GUIObject
         Object source = e.getSource();
         if(source == buttonSubmit)
         {
-            System.out.println("button submit");
-            JOptionPane.showMessageDialog(this,
-                    "Pomyślnie dokonano zwrotu rezerwacji.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            if(isReadyToSubmit && reservation != null)
+            {
+                if(MainManager.getInstance().returnReservation(reservation.getId()))
+                {
+                    JOptionPane.showMessageDialog(this,
+                            "Pomyślnie dokonano zwrotu rezerwacji: \n-ID: " + reservation.getId(), "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,
+                            "Rezerwacja już była zakończona.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else
+            {
+
+                JOptionPane.showMessageDialog(this,
+                        "Brak wybranej rezerwacji do zwrotu.", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+            }
         }
         else if(source == buttonShow)
         {
+
             if (textFieldReservationId.getText().equals(""))
             {
                 JOptionPane.showMessageDialog(this, "Podaj ID rezerwacji!");
@@ -172,23 +199,39 @@ public class GUIReturnReservation extends GUIObject
             try
             {   // catch NumberFormatException
                 int id_reservation = Integer.parseInt(textFieldReservationId.getText());
+
                 // check if reservation exists
-                if(ReservationManager.getInstance().get(id_reservation) == null)
+                reservation = ReservationManager.getInstance().get(id_reservation);
+                if(reservation == null)
                 {
                     JOptionPane.showMessageDialog(this,
                             "Podana rezerwacja nie istnieje!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    isReadyToSubmit = false;
                     return;
                 }
 
-                //show reservation
-                //todo
+                // wyswietl dane rezerwacji i klienta ktory jej dokonał
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                textFieldsReservation[0].setText(String.valueOf(reservation.getId()));
+                textFieldsReservation[1].setText(String.valueOf(reservation.getId_client()));
+                textFieldsReservation[2].setText(dateFormat.format(reservation.getDateStart()));
+                textFieldsReservation[3].setText(dateFormat.format(reservation.getDateEnd()));
 
+                Client client = ClientManager.getInstance().get(reservation.getId_client());
+                textFieldsClient[0].setText(String.valueOf(client.getId()));
+                textFieldsClient[1].setText(client.getFirstName());
+                textFieldsClient[2].setText(client.getLastName());
+                textFieldsClient[3].setText(client.getPhoneNr());
+                textFieldsClient[4].setText(client.getEmail());
+
+                isReadyToSubmit = true;
             }
             catch(NumberFormatException ex)
             {
                 JOptionPane.showMessageDialog(this,
                         "Wypelnij poprawne dane!", "Wypelnij poprawne dane!", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }
 

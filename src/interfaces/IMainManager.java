@@ -70,7 +70,7 @@ public interface IMainManager
 	 * 
 	 * @param id_reservation
 	 */
-	void returnReservation(int id_reservation);
+	boolean returnReservation(int id_reservation);
 
 	/**
 	 * 

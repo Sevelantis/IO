@@ -13,19 +13,36 @@ public class Reservation extends Entity
 	private final int id_client;
 	private Date dateStart;
 	private Date dateEnd;
-	private float price;
+	private double price;
 	private Status status;
 	private final List<Item> itemList;
 
 	//methods
 
-	public Reservation(int id_client, Date dateEnd, Date dateStart, List<Item> items)
+	public Reservation(int id_client, Date dateStart, Date dateEnd, List<Item> items)
 	{
 		this.id = idCounter++;
 		this.id_client = id_client;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
 		this.itemList = items;
+		this.status = Status.aktywny;
+	}
+
+	public void ret()
+	{
+		// rezerwacja - cena = 0,
+		// Itemlist = null,
+		// status = zakonczono
+		status = Status.zakonczony;
+		setPrice(0.0);
+
+		//zwrot egzemplarzy
+
+		for(Item item : itemList)
+			item.returnItem();
+
+		itemList.clear();
 	}
 
 	//getters
@@ -50,7 +67,7 @@ public class Reservation extends Entity
 		return this.dateEnd;
 	}
 
-	public float getPrice()
+	public double getPrice()
 	{
 		return this.price;
 	}
@@ -89,7 +106,7 @@ public class Reservation extends Entity
 		this.dateEnd = dateEnd;
 	}
 
-	public void setPrice(float price)
+	public void setPrice(double price)
 	{
 		this.price = price;
 	}

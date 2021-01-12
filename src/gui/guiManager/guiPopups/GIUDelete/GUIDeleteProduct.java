@@ -128,7 +128,7 @@ public class GUIDeleteProduct extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Float.toString(p.getPrice())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice())};
                     tableModel.addRow(row);
                 }
             }

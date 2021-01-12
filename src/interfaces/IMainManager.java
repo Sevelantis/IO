@@ -41,10 +41,9 @@ public interface IMainManager
 	 * 
 	 * @param id_product
 	 * @param name
-	 * @param numberOfItems
 	 * @param price
 	 */
-	void modifyProduct(int id_product, String name, int numberOfItems, float price);
+	void modifyProduct(int id_product, String name, float price);
 
 	/**
 	 * 

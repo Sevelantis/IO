@@ -2,7 +2,9 @@ package gui.guiManager;
 
 import gui.GUIMain;
 import gui.guiManager.guiPopups.GIUDelete.GUIDeleteProduct;
+import gui.guiManager.guiPopups.GUIAdd.GUIAddProduct;
 import gui.guiManager.guiPopups.GUIDisplayProducts;
+import gui.guiManager.guiPopups.GUIUpdateProduct;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,21 +57,19 @@ public class GUIManagerProducts extends GUIObject
         Object source = e.getSource();
         if(source == buttonAdd)
         {
-
-//            new GUIAddProduct(this);
+            new GUIAddProduct(this);
         }
         else if(source == buttonDisplayAll)
         {
             new GUIDisplayProducts(this);
-            System.out.println("buttonSearch");
         }
         else if(source == buttonDelete)
         {
             new GUIDeleteProduct(this);
-            System.out.println("buttonDelete");
         }
         else if(source == buttonUpdate)
         {
+            new GUIUpdateProduct(this);
             System.out.println("buttonUpdate");
         }
     }

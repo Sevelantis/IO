@@ -2,6 +2,7 @@ package gui.guiManager;
 
 import gui.GUIMain;
 import gui.guiManager.guiPopups.GUIAdd.GUIAddReservation;
+import gui.guiManager.guiPopups.GUIReturnReservation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,11 +56,12 @@ public class GUIManagerReservation extends GUIObject
         }
         else if(source == buttonDisplayAll)
         {
+
             System.out.println("buttonSearch");
         }
         else if(source == buttonReturn)
         {
-            System.out.println("buttonReturn");
+            new GUIReturnReservation(this);
         }
     }
 

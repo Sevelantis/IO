@@ -35,7 +35,8 @@ public class GUIDisplayProducts extends GUIObject
         MainManager.getInstance();
 
         for (Product product: ProductManager.getInstance().getProductList())
-            addProductToCart(product);
+            if(!cartProducts.contains(product))
+                cartProducts.add(product);
 
         //layout
         panel.setLayout(new GridBagLayout());
@@ -115,19 +116,6 @@ public class GUIDisplayProducts extends GUIObject
                     tableModel.addRow(row);
                 }
             }
-        }
-    }
-
-    private void addProductToCart(Product product)
-    {
-        if(product.isAvailable())
-        {
-            if(!cartProducts.contains(product))
-                cartProducts.add(product);
-            product.reserveInCart();
-        }else
-        {
-            JOptionPane.showMessageDialog(this, "Brak dostępnych egzemplarzy.", "Błąd.", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

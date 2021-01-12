@@ -59,7 +59,7 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public void modifyProduct(int id_product, String name, int numberOfItems, float price)
+	public void modifyProduct(int id_product, String name, float price)
 	{
 		Product product = productManager.get(id_product);
 		product.setName(name);

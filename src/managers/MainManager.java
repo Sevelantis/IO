@@ -92,7 +92,7 @@ public class MainManager implements IMainManager
 
 		try
 		{
-			reservationManager.createAgreementFile(reservation);
+			reservationManager.generateAgreement(reservation);
 		}
 		catch (IOException e)
 		{

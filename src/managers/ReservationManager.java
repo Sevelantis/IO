@@ -40,31 +40,12 @@ public class ReservationManager implements IManager
 		return null;
 	}
 
-	public void generateAgreement(int id_reservation)
-	{
-		Reservation reservation = null;
-		for(Reservation r : reservationList)
-			if(r.getId() == id_reservation) {
-				reservation = r;
-				break;
-			}
-
-		if(reservation != null) try
-		{
-			createAgreementFile(reservation);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	// TODO should be private
-	public void createAgreementFile(Reservation reservation) throws IOException
+	public void generateAgreement(Reservation reservation) throws IOException
 	{
 		String folderAgreementsName = "umowy";
 		String nameOfAgreement = ClientManager.getInstance().get(reservation.getId_client()).getFirstName()
-                + "_" + ClientManager.getInstance().get(reservation.getId_client()).getLastName() + " - umowa.txt";
+                + "_" + ClientManager.getInstance().get(reservation.getId_client()).getLastName() + " - umowa "
+				+ reservation.getId() + ".txt";
 
 
 		try {
@@ -79,7 +60,7 @@ public class ReservationManager implements IManager
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		List<String> protocol = Arrays.asList(
 				"=== WYPORZYCZALNIA KOSTIUMÓW ===",
-				"UMOWA AKTU WYPOŻYCZENIA " + "id_reservation = " + reservation.getId(),
+				"UMOWA AKTU WYPORZYCZENIA " + "id_reservation = " + reservation.getId(),
 				"",
 				"Wypożyczający zobowiązuje się do oddania wypożyczonych egzemplarzy " +
                         "w terminie oraz\n w stanie nie gorszym niż zostały mu otrzymane. ",
@@ -94,7 +75,7 @@ public class ReservationManager implements IManager
 
 		List<String> agreement = new ArrayList<>(protocol);
 
-		HashMap<Integer, Integer> products = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> products = new HashMap<>();
 
 		for (Item item: reservation.getItems()) {
 			Integer id = item.getId_product();

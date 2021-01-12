@@ -27,7 +27,7 @@ public interface IMainManager
 	 *
 	 * @param price
 	 */
-	List<Product> searchProducts(float price);
+	List<Product> searchProducts(double price);
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public interface IMainManager
 	 * @param price
 	 * @param numberOfItems
 	 */
-	public void addProduct(String name, float price, int numberOfItems);
+	public void addProduct(String name, double price, int numberOfItems);
 
 	/**
 	 * 
@@ -43,7 +43,7 @@ public interface IMainManager
 	 * @param name
 	 * @param price
 	 */
-	void modifyProduct(int id_product, String name, float price);
+	void modifyProduct(int id_product, String name, double price);
 
 	/**
 	 * 

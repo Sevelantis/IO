@@ -44,7 +44,7 @@ public class ProductManager implements IManager
 	/*
 		* Metoda wyszukiwania na podstawie dwóch parametrów
 	*/
-	public List<Product> search(String name, float price)
+	public List<Product> search(String name, double price)
 	{
 		List<Product> interest = new Vector<>();
 		if( price == 0)

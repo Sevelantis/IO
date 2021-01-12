@@ -143,7 +143,7 @@ public class Product extends Entity
 		this.name = name;
 	}
 
-	public void setPrice(float price)
+	public void setPrice(double price)
 	{
 		this.price = price;
 	}

@@ -14,19 +14,20 @@ public class GUIAddClient extends GUIObject
     private final String TITLE = "Dodawanie Produktu";
 
     //variables
-    private final int cntrRowsProducts = 3;
+    private final int cntrRowsClients = 4;
 
     private final String[] rowsProduct = {
-            "Nazwa:",
-            "Cena: ",
-            "Liczba egzemplarzy: "
+            "Imię:",
+            "Nazwisko: ",
+            "Nr telefonu(9): ",
+            "E-mail"
     };
 
     //client header
-    private final JLabel labelsProduct[] = new JLabel[cntrRowsProducts];
+    private final JLabel labelsProduct[] = new JLabel[cntrRowsClients];
 
     //client data
-    private JTextField textFieldsProduct[] = new JTextField[cntrRowsProducts];
+    private JTextField textFieldsClient[] = new JTextField[cntrRowsClients];
 
     //JButton
     private JButton buttonAdd = new JButton("Dodaj");
@@ -57,10 +58,11 @@ public class GUIAddClient extends GUIObject
 
         gbc.gridx = 0;
         gbc.gridy = AxisY++;
-        panel.add(new JLabel("Nowy Produkt :"), gbc);
+        gbc.gridwidth = 2;
+        panel.add(new JLabel("Nowy Klient :"), gbc);
         gbc.gridwidth = 1;
 
-        for (int i = 0; i < cntrRowsProducts; i++)
+        for (int i = 0; i < cntrRowsClients; i++)
         {
             //left
             labelsProduct[i] = new JLabel(rowsProduct[i]);
@@ -71,11 +73,11 @@ public class GUIAddClient extends GUIObject
             panel.add(labelsProduct[i], gbc);
 
             //right
-            textFieldsProduct[i] = new JTextField(10);
-            textFieldsProduct[i].setMinimumSize(new Dimension(120,20));
+            textFieldsClient[i] = new JTextField(10);
+            textFieldsClient[i].setMinimumSize(new Dimension(120,20));
             gbc.gridx = 1;
             gbc.gridy = AxisY++;
-            panel.add(textFieldsProduct[i], gbc);
+            panel.add(textFieldsClient[i], gbc);
         }
 
         gbc.gridx = 0;
@@ -88,45 +90,30 @@ public class GUIAddClient extends GUIObject
     public void actionPerformed(ActionEvent e)
     {
         Object source = e.getSource();
+        
         if(source == buttonAdd)
         {
-            String name;
-            double price;
-            int numberOfItems;
-            if(textFieldsProduct[0].getText().equals(""))
-            {
-                JOptionPane.showMessageDialog(this, "Puste pole nazwy");
-                return;
-            }
-            name = textFieldsProduct[0].getText();
-            try
-            {
-                price = Double.parseDouble(textFieldsProduct[1].getText());
-            }catch (NumberFormatException nfe)
-            {
-                JOptionPane.showMessageDialog(this, "Błędna cena");
-                return;
-            }
-            if(price <= 0)
-            {
-                JOptionPane.showMessageDialog(this, "Błędna cena");
-                return;
-            }
-            try
-            {
-                numberOfItems = Integer.parseInt(textFieldsProduct[2].getText());
-            }catch (NumberFormatException nfe)
-            {
-                JOptionPane.showMessageDialog(this, "Błędna liczba egzemplarzy");
-                return;
-            }
-            if(numberOfItems < 0)
-            {
-                JOptionPane.showMessageDialog(this, "Błędna liczba egzemplarzy");
-                return;
-            }
-            MainManager.getInstance().addProduct(name, (float)price, numberOfItems);
-            JOptionPane.showMessageDialog(this, "Dodano produkt");
+            String firstName;
+            String lastname;
+            String phoneNr;
+            String email;
+
+            for(int i = 0 ; i < cntrRowsClients ; i++)
+                if(textFieldsClient[i].getText().equals(""))
+                {
+                    if (i == 3) continue; // mail can be null
+                    JOptionPane.showMessageDialog(this, "Uzupełnij puste pola!");
+                    return;
+                }
+            firstName = textFieldsClient[0].getText();
+            lastname = textFieldsClient[1].getText();
+            phoneNr = textFieldsClient[2].getText();
+            email = textFieldsClient[3].getText();
+
+            MainManager.getInstance().addClient(firstName, lastname, phoneNr, email);
+            JOptionPane.showMessageDialog(this, "Dodano klienta:\n"
+                    + firstName + " " + lastname + "\ntel: " + phoneNr);
+            dispose();
         }
     }
 }

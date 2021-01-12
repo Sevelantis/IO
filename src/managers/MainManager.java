@@ -45,13 +45,13 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public List<Product> searchProducts(float price)
+	public List<Product> searchProducts(double price)
 	{
 		return productManager.search("", price);
 	}
 
 	@Override
-	public void addProduct(String name, float price, int numberOfItems)
+	public void addProduct(String name, double price, int numberOfItems)
 	{
 		Product product = new Product(name, price);
 		productManager.add(product);
@@ -59,7 +59,7 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public void modifyProduct(int id_product, String name, float price)
+	public void modifyProduct(int id_product, String name, double price)
 	{
 		Product product = productManager.get(id_product);
 		product.setName(name);

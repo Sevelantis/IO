@@ -2,6 +2,7 @@ package gui.guiManager;
 
 import gui.GUIMain;
 import gui.guiManager.guiPopups.GIUDelete.GUIDeleteProduct;
+import gui.guiManager.guiPopups.GUIDisplayProducts;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,7 @@ public class GUIManagerProducts extends GUIObject
     public void addActionListeners()
     {
         buttonAdd.addActionListener(this);
-        buttonSearch.addActionListener(this);
+        buttonDisplayAll.addActionListener(this);
         buttonDelete.addActionListener(this);
         buttonUpdate.addActionListener(this);
     }
@@ -40,10 +41,10 @@ public class GUIManagerProducts extends GUIObject
     {
         panel.setLayout(new GridLayout(4,1,20,20));
         buttonAdd.setText("Dodaj Produkt");
-        buttonSearch.setText("Wyszukaj Produkt (zbędne)");
+        buttonDisplayAll.setText("Wyświetl wszystkie");
 
         panel.add(buttonAdd);
-        panel.add(buttonSearch);
+        panel.add(buttonDisplayAll);
         panel.add(buttonDelete);
         panel.add(buttonUpdate);
     }
@@ -57,8 +58,9 @@ public class GUIManagerProducts extends GUIObject
 
 //            new GUIAddProduct(this);
         }
-        else if(source == buttonSearch)
+        else if(source == buttonDisplayAll)
         {
+            new GUIDisplayProducts(this);
             System.out.println("buttonSearch");
         }
         else if(source == buttonDelete)

@@ -119,6 +119,11 @@ public class Product extends Entity
 		return this.price;
 	}
 
+	public int getItemListSize()
+	{
+		return this.itemList.size();
+	}
+
 	@Override
 	public String toString()
 	{

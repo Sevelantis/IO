@@ -19,7 +19,7 @@ public abstract class GUIObject extends JDialog implements IGUI
 
     //JButton
     protected JButton buttonAdd = new JButton();//for add purposes
-    protected JButton buttonSearch = new JButton();//for search purposes
+    protected JButton buttonDisplayAll = new JButton();//for search purposes
 
     //methods
     protected GUIObject(Window parent)

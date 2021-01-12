@@ -12,7 +12,6 @@ public class Client extends Entity
 	private String lastName;
 	private String phoneNr;
 	private String email;
-	//	Reservation reservationList;
 	List<Reservation> reservationList = new Vector<>();
 
 	//methods

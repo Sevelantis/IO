@@ -29,7 +29,7 @@ public class GUIManagerReservation extends GUIObject
     public void addActionListeners()
     {
         buttonAdd.addActionListener(this);
-        buttonSearch.addActionListener(this);
+        buttonDisplayAll.addActionListener(this);
         buttonReturn.addActionListener(this);
     }
 
@@ -38,10 +38,10 @@ public class GUIManagerReservation extends GUIObject
     {
         panel.setLayout(new GridLayout(3,1,20,20));
         buttonAdd.setText("Dodaj Rezerwacje");
-        buttonSearch.setText("Wyszukaj Rezerwacje");
+        buttonDisplayAll.setText("Wyszukaj Rezerwacje");
 
         panel.add(buttonAdd);
-        panel.add(buttonSearch);
+        panel.add(buttonDisplayAll);
         panel.add(buttonReturn);
     }
 
@@ -53,7 +53,7 @@ public class GUIManagerReservation extends GUIObject
         {
             new GUIAddReservation(this);
         }
-        else if(source == buttonSearch)
+        else if(source == buttonDisplayAll)
         {
             System.out.println("buttonSearch");
         }

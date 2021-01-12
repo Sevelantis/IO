@@ -11,7 +11,7 @@ public class ProductManager implements IManager
 	//attributes
 
 	private static ProductManager instance;
-	List<Product> productList = new Vector<>();
+	private List<Product> productList = new Vector<>();
 
 	//methods
 
@@ -66,6 +66,12 @@ public class ProductManager implements IManager
 	{
 		if(instance == null) instance = new ProductManager();
 		return instance;
+	}
+
+	//getters
+	public List<Product> getProductList()
+	{
+		return this.productList;
 	}
 
 	//setters

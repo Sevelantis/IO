@@ -12,7 +12,6 @@ public class Client extends Entity
 	private String lastName;
 	private String phoneNr;
 	private String email;
-	//	Reservation reservationList;
 	List<Reservation> reservationList = new Vector<>();
 
 	//methods
@@ -57,6 +56,13 @@ public class Client extends Entity
 	public List<Reservation> getReservationList()
 	{
 		return reservationList;
+	}
+
+	@Override
+	public String toString()
+	{
+		String str = "[ID Client: " + id + ", " + firstName +", " + lastName + "," + phoneNr + ", " + email + "]";
+		return str;
 	}
 
 	//setters

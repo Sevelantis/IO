@@ -31,9 +31,9 @@ public class ReservationManager implements IManager
 	public Reservation get(int id_reservation)
 	{
 		for(Reservation reservation : reservationList)
-			if(reservation.getId() == id_reservation) {
-				reservationList.remove(reservation);
-				break;
+			if(reservation.getId() == id_reservation)
+			{
+				return reservation;
 			}
 		return null;
 	}
@@ -114,6 +114,11 @@ public class ReservationManager implements IManager
 	{
 		if(instance == null) instance = new ReservationManager();
 		return instance;
+	}
+
+	public List<Reservation> getReservationList()
+	{
+		return this.reservationList;
 	}
 
 	// methods handled by database -------------

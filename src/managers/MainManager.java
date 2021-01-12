@@ -80,7 +80,7 @@ public class MainManager implements IMainManager
 		Reservation reservation = new Reservation(id_client, dateStart, dateEnd, itemList);
 		reservationManager.add(reservation);
 
-		//rezerwacja egzemplarzy z koszyka
+		//rezerwacja rezerwowanych egzemplarzy
 		for(Item item : itemList)
 			item.reserveItem(reservation.getId());
 

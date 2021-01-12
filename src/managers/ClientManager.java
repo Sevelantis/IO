@@ -43,6 +43,11 @@ public class ClientManager implements IManager
 		return instance;
 	}
 
+	public List<Client> getClientList()
+	{
+		return this.clientList;
+	}
+
 	// handled by database -------------
 	// .
 }

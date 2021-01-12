@@ -1,19 +1,19 @@
 package gui;
 
-import entities.Client;
-import entities.Reservation;
+import filereader.FileHelper;
+import gui.guiManager.GUIManagerProducts;
 import gui.guiManager.GUIManagerReservation;
-import managers.ClientManager;
-import managers.ItemManager;
+import gui.guiManager.guiPopups.GUIReturnReservation;
 import managers.MainManager;
-import managers.ReservationManager;
+import managers.ProductManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 public class GUIMain extends JFrame implements ActionListener
 {
@@ -43,26 +43,8 @@ public class GUIMain extends JFrame implements ActionListener
         manager = new MainManager();
 
         //fake populate
-        for(int i = 0 ; i < 100 ; i++ )
-        {
-            MainManager.getInstance().addProduct(Integer.toHexString(i), (float)(i+i/10.0), 3 + i/6);
-        }
+        simulateData();
 
-        Client client = new Client("Adam", "Małysz", "592876090", "mammalego@.gumeil.dom");
-        ClientManager.getInstance().add(client);
-        MainManager mm = new MainManager();
-        MainManager.getInstance().addProduct("Zabawkowe Narty", (float) 15.99, 5);
-        MainManager.getInstance().addProduct("Pistolet maszynowy RKM", (float) 2999.99, 6);
-        MainManager.getInstance().addProduct("Hamburger 100% plastik", (float) 4.99, 9);
-
-        Reservation res = new Reservation(client.getId(), new Date(2019, 12, 10), new Date(2020, 12, 10),
-                ItemManager.getInstance().itemList);
-
-        try {
-            ReservationManager.getInstance().createAgreementFile(res);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void addActionListeners()
@@ -71,6 +53,41 @@ public class GUIMain extends JFrame implements ActionListener
         buttonManageProducts.addActionListener(this);
         buttonManageReservations.addActionListener(this);
     }
+
+    private void simulateData()
+    {
+        // declarations lists
+        List<String> clients = new Vector<>();
+        List<String> products = new Vector<>();
+
+        // -- read clients form file --
+        FileHelper.readFile("data/clients.txt", clients);
+        for(String str : clients)
+        {
+            String[] data = str.split(",");
+            MainManager.getInstance().addClient(
+                    data[0],data[1],data[2],data[3]);
+        }
+        // -- read clients form file --
+
+        // -- read products form file --
+        FileHelper.readFile("data/products", products);
+        for(String str : products)
+        {
+            String[] data = str.split(",");
+            MainManager.getInstance().addProduct(
+                    data[0], Float.parseFloat(data[1]), 5);
+        }
+        // -- read products form file --
+
+        // example reservations.
+        MainManager.getInstance().addReservation(0, new Date(2019, 12, 10), new Date(2020, 12, 17),
+                ProductManager.getInstance().get(1).getItems());
+        MainManager.getInstance().addReservation(1, new Date(2019, 11, 22), new Date(2020, 12, 29),
+                ProductManager.getInstance().get(2).getItems());
+        MainManager.getInstance().addReservation(2, new Date(2019, 9, 9), new Date(2020, 9, 16),
+                ProductManager.getInstance().get(3).getItems());
+        }
 
     private void initButtons()
     {
@@ -103,7 +120,7 @@ public class GUIMain extends JFrame implements ActionListener
         else if(source == buttonManageProducts)
         {
             System.out.println("Manage Products");
-//            new GUIProducts();
+            guiManager = new GUIManagerProducts(this);
         }
         else if(source == buttonManageClients)
         {

@@ -127,7 +127,7 @@ public class GUIAddReservation extends GUIObject
     {
         Object source = e.getSource();
 
-        if (source == buttonSubmit)
+        if (source == buttonSubmit)//OK
         {
             if (textFieldClientId.getText().equals("") ||
                     textFieldDateStart.getText().equals("") ||
@@ -162,12 +162,14 @@ public class GUIAddReservation extends GUIObject
                         new SimpleDateFormat("yyyy-MM-dd").parse(textFieldDateEnd.getText()),
                         itemList);
 
+                JOptionPane.showMessageDialog(this,
+                        "Pomyslnie dodano rezerwację.", "INFO", JOptionPane.INFORMATION_MESSAGE);
                 dispose();
             }
             catch(NumberFormatException | ParseException ex)
             {
                 JOptionPane.showMessageDialog(this,
-                        "Wypelnij poprawne dane!", "Wypelnij poprawne dane!", JOptionPane.ERROR_MESSAGE);
+                        "Wypelnij poprawne dane!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
         else if(source == buttonAddItem)//OK
@@ -175,7 +177,7 @@ public class GUIAddReservation extends GUIObject
             addProductToCart(GUIGetProduct.getProduct(this));
             panelViewList.updateView();
         }
-        else if(source == buttonRemoveItem)
+        else if(source == buttonRemoveItem)//OK
         {
             int selectedIndex = panelViewList.getSelectedIndex();
             Product selectedProduct = cartProducts.get(selectedIndex);

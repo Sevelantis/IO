@@ -60,6 +60,23 @@ public class Reservation extends Entity
 		return this.status;
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder str = new StringBuilder("[ID Reservation: " + id + ", Data początku: " + dateStart.toString() + ", Data Końca"
+				+ dateEnd.toString() + ", ID wypożyczonych egzemplarzy: {");
+		int i = 0;
+		for(Item item : itemList)
+		{
+			i++;
+			if(i == itemList.size()) break;
+			str.append(item.id+", ");
+		}
+		str.append("}]");
+
+		return str.toString();
+	}
+
 	//setters
 
 	public void setDateStart(Date dateStart)

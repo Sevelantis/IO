@@ -4,7 +4,6 @@ import entities.Item;
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
-import gui.guiManager.guiPopups.GUIProducts.GUIGetProduct;
 import managers.MainManager;
 
 import javax.swing.*;

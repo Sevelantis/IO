@@ -1,6 +1,7 @@
 package gui;
 
 import filereader.FileHelper;
+import gui.guiManager.GUIManagerClients;
 import gui.guiManager.GUIManagerProducts;
 import gui.guiManager.GUIManagerReservation;
 import managers.MainManager;
@@ -119,13 +120,11 @@ public class GUIMain extends JFrame implements ActionListener
         }
         else if(source == buttonManageProducts)
         {
-            System.out.println("Manage Products");
             guiManager = new GUIManagerProducts(this);
         }
         else if(source == buttonManageClients)
         {
-            System.out.println("Manage Clients");
-//            new GUIClients();
+            new GUIManagerClients(this);
         }
     }
 }

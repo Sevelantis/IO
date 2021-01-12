@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups.GUIProducts;
+package gui.guiManager.guiPopups.GUIReservations;
 
 import entities.Product;
 import gui.GUIMain;

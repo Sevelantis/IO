@@ -5,13 +5,11 @@ import gui.guiManager.GUIManagerClients;
 import gui.guiManager.GUIManagerProducts;
 import gui.guiManager.GUIManagerReservation;
 import managers.MainManager;
-import managers.ProductManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -44,8 +42,6 @@ public class GUIMain extends JFrame implements ActionListener
 
         //fake populate
         simulateData();
-
-//        new GUIReturnReservation(this);
     }
 
     private void addActionListeners()
@@ -55,7 +51,7 @@ public class GUIMain extends JFrame implements ActionListener
         buttonManageReservations.addActionListener(this);
     }
 
-    private void simulateData()
+    public static void simulateData()
     {
         // declarations lists
         List<String> clients = new Vector<>();
@@ -82,12 +78,12 @@ public class GUIMain extends JFrame implements ActionListener
         // -- read products form file --
 
         // example reservations.
-        MainManager.getInstance().addReservation(4, new Date(120, 12, 10), new Date(120, 12, 17),
-                ProductManager.getInstance().get(1).getItems());
-        MainManager.getInstance().addReservation(5, new Date(120, 11, 22), new Date(120, 11, 29),
-                ProductManager.getInstance().get(2).getItems());
-        MainManager.getInstance().addReservation(22, new Date(120, 9, 9), new Date(120, 9, 16),
-                ProductManager.getInstance().get(3).getItems());
+//        MainManager.getInstance().addReservation(4, new Date(120, 12, 10), new Date(120, 12, 17),
+//                ProductManager.getInstance().get(1).getItems());
+//        MainManager.getInstance().addReservation(5, new Date(120, 11, 22), new Date(120, 11, 29),
+//                ProductManager.getInstance().get(2).getItems());
+//        MainManager.getInstance().addReservation(22, new Date(120, 9, 9), new Date(120, 9, 16),
+//                ProductManager.getInstance().get(3).getItems());
         }
 
     private void initButtons()

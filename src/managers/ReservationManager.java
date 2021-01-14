@@ -27,6 +27,7 @@ public class ReservationManager implements IManager
 	public void add(Object obj)
 	{
 		reservationList.add(	(Reservation) obj	);
+		updateDatabaseFromLocal();
 	}
 
 	@Override
@@ -40,26 +41,6 @@ public class ReservationManager implements IManager
 		return null;
 	}
 
-	public void generateAgreement(int id_reservation)
-	{
-		Reservation reservation = null;
-		for(Reservation r : reservationList)
-			if(r.getId() == id_reservation) {
-				reservation = r;
-				break;
-			}
-
-		if(reservation != null) try
-		{
-			createAgreementFile(reservation);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	// TODO should be private
 	public void createAgreementFile(Reservation reservation) throws IOException
 	{
 		String folderAgreementsName = "umowy";
@@ -128,6 +109,16 @@ public class ReservationManager implements IManager
 	public List<Reservation> getReservationList()
 	{
 		return this.reservationList;
+	}
+
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
+	}
+
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
 	}
 
 	// methods handled by database -------------

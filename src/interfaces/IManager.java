@@ -15,4 +15,7 @@ public interface IManager
 	 */
 	Object get(int id);
 
+	boolean updateDatabaseFromLocal();
+	boolean updateLocalFromDatabase();
+
 }

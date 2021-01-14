@@ -5,16 +5,6 @@ import enums.Condition;
 import java.util.List;
 import java.util.Vector;
 
-////todo? do produktu moze jednak niekoniecznie useful.
-//class ProductException extends Exception
-//{
-//	private static final long serialVersionUID = 1L;
-//	public ProductException(String message)
-//	{
-//		super(message);
-//	}
-//}
-
 public class Product extends Entity
 {
 	private static int idCounter = 0;

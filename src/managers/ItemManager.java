@@ -53,6 +53,16 @@ public class ItemManager implements IManager
 		return instance;
 	}
 
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
+	}
+
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
+	}
+
 	// methods handled by database -------------
 
 	public void buildItems(Product product)

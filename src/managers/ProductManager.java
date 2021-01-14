@@ -77,15 +77,15 @@ public class ProductManager implements IManager
 	//setters
 	// .
 
-	// methods handled by database -------------
-	// .
-
-	//DB
-	private void uploadFromDatabase()
-	{
-		//my tylko robimy logike biznesową, a nie połączenie z bazą :)
-		//TODO
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
 	}
 
-	//getters
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
+	}
+
+	// methods handled by database -------------
 }

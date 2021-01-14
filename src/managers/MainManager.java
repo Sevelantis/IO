@@ -95,7 +95,7 @@ public class MainManager implements IMainManager
 
 		try
 		{
-			reservationManager.createAgreementFile(reservation);
+			reservationManager.generateAgreement(reservation);
 			reservationManager.updateDatabaseFromLocal();//
 		}
 		catch (IOException e)
@@ -155,7 +155,9 @@ public class MainManager implements IMainManager
 	@Override
 	public void addItem(int id_product)
 	{
-		itemManager.add(new Item(id_product));
+		Item item = new Item(id_product);
+		itemManager.add(item);
+		productManager.get(id_product).addItem(item);
 		itemManager.updateDatabaseFromLocal();//
 	}
 
@@ -183,6 +185,7 @@ public class MainManager implements IMainManager
 			itemManager.add(item);
 			productManager.get(id_product).addItem(item);
 		}
+		itemManager.updateDatabaseFromLocal();//
 	}
 
 	//----------------------- handled by database ---------------------

@@ -91,6 +91,7 @@ public class MainManager implements IMainManager
 
 		reservation.setPrice(price);
 		reservationManager.add(reservation);
+		clientManager.get(id_client).addReservation(reservation);
 
 		try
 		{
@@ -101,6 +102,7 @@ public class MainManager implements IMainManager
 		{
 			e.printStackTrace();
 		}
+
 	}
 
 	@Override

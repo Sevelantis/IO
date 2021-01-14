@@ -76,7 +76,7 @@ public class ReservationManager implements IManager
 
 		List<String> agreement = new ArrayList<>(protocol);
 
-		HashMap<Integer, Integer> products = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> products = new HashMap<>();
 
 		for (Item item: reservation.getItems()) {
 			Integer id = item.getId_product();

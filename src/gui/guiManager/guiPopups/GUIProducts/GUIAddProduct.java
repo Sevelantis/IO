@@ -1,4 +1,4 @@
-package gui.guiManager.guiPopups.GUIAdd;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
@@ -57,6 +57,7 @@ public class GUIAddProduct extends GUIObject
 
         gbc.gridx = 0;
         gbc.gridy = AxisY++;
+        gbc.gridwidth = 2;
         panel.add(new JLabel("Nowy Produkt :"), gbc);
         gbc.gridwidth = 1;
 
@@ -125,7 +126,7 @@ public class GUIAddProduct extends GUIObject
                 JOptionPane.showMessageDialog(this, "Błędna liczba egzemplarzy");
                 return;
             }
-            MainManager.getInstance().addProduct(name, (float)price, numberOfItems);
+            MainManager.getInstance().addProduct(name, price, numberOfItems);
             JOptionPane.showMessageDialog(this, "Dodano produkt");
         }
     }

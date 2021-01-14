@@ -27,6 +27,7 @@ public class ReservationManager implements IManager
 	public void add(Object obj)
 	{
 		reservationList.add(	(Reservation) obj	);
+		updateDatabaseFromLocal();
 	}
 
 	@Override
@@ -75,7 +76,7 @@ public class ReservationManager implements IManager
 
 		List<String> agreement = new ArrayList<>(protocol);
 
-		HashMap<Integer, Integer> products = new HashMap<>();
+		HashMap<Integer, Integer> products = new HashMap<Integer, Integer>();
 
 		for (Item item: reservation.getItems()) {
 			Integer id = item.getId_product();
@@ -109,6 +110,16 @@ public class ReservationManager implements IManager
 	public List<Reservation> getReservationList()
 	{
 		return this.reservationList;
+	}
+
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
+	}
+
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
 	}
 
 	// methods handled by database -------------

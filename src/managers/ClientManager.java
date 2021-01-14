@@ -48,6 +48,16 @@ public class ClientManager implements IManager
 		return this.clientList;
 	}
 
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
+	}
+
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
+	}
+
 	// handled by database -------------
 	// .
 }

@@ -1,10 +1,9 @@
-package gui.guiManager.guiPopups;
+package gui.guiManager.guiPopups.GUIClients;
 
-import entities.Product;
+import entities.Client;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
-import managers.MainManager;
-import managers.ProductManager;
+import managers.ClientManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,31 +11,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class GUIDisplayProducts extends GUIObject
+public class GUIDisplayClients extends GUIObject
 {
     //constants
-    private final String TITLE = "Wyświetlanie produktów";
+    private final String TITLE = "Wyświetlanie rezerwacji";
 
     //panelViewList
-    ArrayList<Product> cartProducts = new ArrayList<>();
-    GUIDisplayProducts .PanelViewList panelViewList = new GUIDisplayProducts .PanelViewList();
+    ArrayList<Client> clientList = new ArrayList<>();
+    PanelViewList panelViewList = new PanelViewList();
 
     //methods
-    public GUIDisplayProducts (Window parent)
+    public GUIDisplayClients (Window parent)
     {
         super(parent);
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 150, TITLE);
+        initDialog(GUIMain.WIDTH_WINDOW+400, GUIMain.HEIGHT_WINDOW + 200, TITLE);
     }
 
     @Override
     public void initComponents()
     {
-        MainManager.getInstance();
-
-        for (Product product: ProductManager.getInstance().getProductList())
-            if(!cartProducts.contains(product))
-                cartProducts.add(product);
+        for(Client client: ClientManager.getInstance().getClientList())
+            if(!clientList.contains(client))
+                clientList.add(client);
 
         //layout
         panel.setLayout(new GridBagLayout());
@@ -84,10 +81,15 @@ public class GUIDisplayProducts extends GUIObject
 
         PanelViewList()
         {
-            setMinimumSize(new Dimension(300, 200));
-            String[] header = {"ID", "nazwa", "cena", "liczba egzemplarzy", "liczba dostępnych egzemplarzy"};
+            setMinimumSize(new Dimension(450, 300));
+            String[] header = {
+                    "ID klienta",
+                    "Imię i Nazwisko",
+                    "nr telefonu",
+                    "email"
+            };
             tableModel = new DefaultTableModel(header, 0);
-            setBorder(BorderFactory.createTitledBorder("Produkty:"));
+            setBorder(BorderFactory.createTitledBorder("Rezerwacje:"));
 
             table = new JTable(tableModel)
             {
@@ -107,15 +109,21 @@ public class GUIDisplayProducts extends GUIObject
         void updateView()
         {
             tableModel.setRowCount(0);
-            for (Product p : cartProducts)
+            for (Client c : clientList)
             {
-                if (p != null)
+                if (c != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice()),
-                            Integer.toString(p.getItemListSize()), Integer.toString(p.getNumberOfAvailableItems())};
+                    String clientData = c.getFirstName() + " " + c.getLastName();
+                    String[] row = {
+                            Integer.toString(c.getId()),
+                            clientData,
+                            c.getPhoneNr(),
+                            c.getEmail()
+                    };
                     tableModel.addRow(row);
                 }
             }
         }
     }
+
 }

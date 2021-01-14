@@ -45,32 +45,34 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	public List<Product> searchProducts(float price)
+	public List<Product> searchProducts(double price)
 	{
 		return productManager.search("", price);
 	}
 
 	@Override
-	public void addProduct(String name, float price, int numberOfItems)
+	public void addProduct(String name, double price, int numberOfItems)
 	{
 		Product product = new Product(name, price);
 		productManager.add(product);
 		addItems(product.getId(), numberOfItems);
+		productManager.updateDatabaseFromLocal();//
 	}
 
 	@Override
-	public void modifyProduct(int id_product, String name, float price)
+	public void modifyProduct(int id_product, String name, double price)
 	{
 		Product product = productManager.get(id_product);
 		product.setName(name);
 		product.setPrice(price);
-		// TODO użyć amountAvailable i numberOfItems
+		productManager.updateDatabaseFromLocal();//
 	}
 
 	@Override
 	public void removeProduct(int id_product)
 	{
 		productManager.remove(id_product);
+		productManager.updateDatabaseFromLocal();//
 	}
 
 	//reservation
@@ -92,7 +94,8 @@ public class MainManager implements IMainManager
 
 		try
 		{
-			reservationManager.generateAgreement(reservation);
+			reservationManager.createAgreementFile(reservation);
+			reservationManager.updateDatabaseFromLocal();//
 		}
 		catch (IOException e)
 		{
@@ -115,6 +118,7 @@ public class MainManager implements IMainManager
 		if(reservation.getStatus() == Status.aktywny)
 		{
 			reservation.ret();
+			reservationManager.updateDatabaseFromLocal();//
 			return true;
 		}
 		else
@@ -142,6 +146,7 @@ public class MainManager implements IMainManager
 		client.setLastName(lastName);
 		client.setPhoneNr(phoneNr);
 		client.setEmail(email);
+		clientManager.updateDatabaseFromLocal();//
 	}
 
 	//items
@@ -149,14 +154,14 @@ public class MainManager implements IMainManager
 	public void addItem(int id_product)
 	{
 		itemManager.add(new Item(id_product));
-		//todo
+		itemManager.updateDatabaseFromLocal();//
 	}
 
 	@Override
 	public void removeItem(int id_item)
 	{
-		//todo
-		Item item = itemManager.get(id_item);
+		itemManager.remove(id_item);
+		itemManager.updateDatabaseFromLocal();//
 	}
 
 	//getters
@@ -167,7 +172,7 @@ public class MainManager implements IMainManager
 	}
 
 	@Override
-	//TODO na potrzebe symulacji należy tworzyc odpowiednie egzemplarze produktow
+	//na potrzebe symulacji należy tworzyc odpowiednie egzemplarze produktow
 	public void addItems(int id_product, int numberOfItems)
 	{
 		for (int i = 0; i < numberOfItems; i++)

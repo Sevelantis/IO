@@ -1,10 +1,9 @@
-package gui.guiManager.guiPopups.GUIAdd;
+package gui.guiManager.guiPopups.GUIReservations;
 
 import entities.Item;
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
-import gui.guiManager.guiPopups.GUIGetProduct;
 import managers.MainManager;
 
 import javax.swing.*;
@@ -188,8 +187,12 @@ public class GUIAddReservation extends GUIObject
         }
         else if(source == buttonAddItem)//OK
         {
-            addProductToCart(GUIGetProduct.getProduct(this));
-            panelViewList.updateView();
+            Product product = GUIGetProduct.getProduct(this);
+            if(product != null)
+            {
+                addProductToCart(product);
+                panelViewList.updateView();
+            }
         }
         else if(source == buttonRemoveItem)//OK
         {
@@ -252,7 +255,8 @@ public class GUIAddReservation extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice()), Integer.toString(p.getNumberOfReservedItems())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(),
+                            String.format("%.2f", p.getPrice()), Integer.toString(p.getNumberOfReservedItems())};
                     tableModel.addRow(row);
                 }
             }
@@ -272,12 +276,13 @@ public class GUIAddReservation extends GUIObject
 
     private void addProductToCart(Product product)
     {
-        if(product.isAvailable())
+        if (product.isAvailable())
         {
-            if(!cartProducts.contains(product))
+            if (!cartProducts.contains(product))
                 cartProducts.add(product);
             product.reserveInCart();
-        }else
+        }
+        else
         {
             JOptionPane.showMessageDialog(this, "Brak dostępnych egzemplarzy.", "Błąd.", JOptionPane.ERROR_MESSAGE);
         }

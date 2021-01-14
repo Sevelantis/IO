@@ -1,9 +1,8 @@
-package gui.guiManager.guiPopups.GIUDelete;
+package gui.guiManager.guiPopups.GUIProducts;
 
 import entities.Product;
 import gui.GUIMain;
 import gui.guiManager.GUIObject;
-import managers.MainManager;
 import managers.ProductManager;
 
 import javax.swing.*;
@@ -12,39 +11,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class GUIDeleteProduct extends GUIObject
+public class GUIDisplayProducts extends GUIObject
 {
     //constants
-    private final String TITLE = "Usuwanie produktu";
-
-    //JButton
-    JButton buttonRemoveProduct = new JButton("Usuń Egzemplarz");
+    private final String TITLE = "Wyświetlanie produktów";
 
     //panelViewList
     ArrayList<Product> cartProducts = new ArrayList<>();
-    GUIDeleteProduct.PanelViewList panelViewList = new GUIDeleteProduct.PanelViewList();
+    PanelViewList panelViewList = new PanelViewList();
 
     //methods
-    public GUIDeleteProduct(Window parent)
+    public GUIDisplayProducts (Window parent)
     {
         super(parent);
-        addActionListeners();
         initComponents();
-        initDialog(GUIMain.WIDTH_WINDOW+100, GUIMain.HEIGHT_WINDOW + 150, TITLE);
-    }
-
-    @Override
-    public void addActionListeners()
-    {
-        buttonRemoveProduct.addActionListener(this);
+        initDialog(GUIMain.WIDTH_WINDOW+400, GUIMain.HEIGHT_WINDOW + 200, TITLE);
     }
 
     @Override
     public void initComponents()
     {
-        MainManager.getInstance();
-
-        for (Product product: ProductManager.getInstance().getProductList())
+        for(Product product: ProductManager.getInstance().getProductList())
             if(!cartProducts.contains(product))
                 cartProducts.add(product);
 
@@ -61,7 +48,6 @@ public class GUIDeleteProduct extends GUIObject
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(buttonRemoveProduct, gbc);
 
         panelViewList.updateView();
     }
@@ -69,19 +55,13 @@ public class GUIDeleteProduct extends GUIObject
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        Object source = e.getSource();
-        if(source == buttonRemoveProduct)
-        {
-            int selectedIndex = panelViewList.getSelectedIndex();
-            Product selectedProduct = cartProducts.get(selectedIndex);
 
-            if(cartProducts.contains(selectedProduct))
-            {
-                MainManager.getInstance().removeProduct(selectedProduct.getId());
-                cartProducts.remove(selectedIndex);
-                panelViewList.updateView();
-            }
-        }
+    }
+
+    @Override
+    public void addActionListeners()
+    {
+
     }
 
     @Override
@@ -101,8 +81,8 @@ public class GUIDeleteProduct extends GUIObject
 
         PanelViewList()
         {
-            setMinimumSize(new Dimension(300, 200));
-            String[] header = {"ID", "nazwa", "cena"};
+            setMinimumSize(new Dimension(600, 300));
+            String[] header = {"ID", "nazwa", "cena[zł]", "liczba egzemplarzy", "liczba dostępnych egzemplarzy"};
             tableModel = new DefaultTableModel(header, 0);
             setBorder(BorderFactory.createTitledBorder("Produkty:"));
 
@@ -128,21 +108,11 @@ public class GUIDeleteProduct extends GUIObject
             {
                 if (p != null)
                 {
-                    String[] row = {Integer.toString(p.getId()), p.getName(), Double.toString(p.getPrice())};
+                    String[] row = {Integer.toString(p.getId()), p.getName(), String.format("%.2f", p.getPrice()),
+                            Integer.toString(p.getItemListSize()), Integer.toString(p.getNumberOfAvailableItems())};
                     tableModel.addRow(row);
                 }
             }
-//		table.setModel(tableModel);
-        }
-
-        int getSelectedIndex()
-        {
-            int index = table.getSelectedRow();
-            if (index < 0)
-            {
-                JOptionPane.showMessageDialog(this, "Zaznacz wiersz.", "Błąd.", JOptionPane.ERROR_MESSAGE);
-            }
-            return index;
         }
     }
 }

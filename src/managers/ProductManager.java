@@ -44,7 +44,7 @@ public class ProductManager implements IManager
 	/*
 		* Metoda wyszukiwania na podstawie dwóch parametrów
 	*/
-	public List<Product> search(String name, float price)
+	public List<Product> search(String name, double price)
 	{
 		List<Product> interest = new Vector<>();
 		if( price == 0)
@@ -77,15 +77,15 @@ public class ProductManager implements IManager
 	//setters
 	// .
 
-	// methods handled by database -------------
-	// .
-
-	//DB
-	private void uploadFromDatabase()
-	{
-		//my tylko robimy logike biznesową, a nie połączenie z bazą :)
-		//TODO
+	@Override
+	public boolean updateDatabaseFromLocal() {
+		return true;
 	}
 
-	//getters
+	@Override
+	public boolean updateLocalFromDatabase() {
+		return true;
+	}
+
+	// methods handled by database -------------
 }

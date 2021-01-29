@@ -33,7 +33,7 @@ Całość dokumentacji pracy znajduje się w pliku dokumentacja.pdf
 # GUI
 Przykłady interfejsu graficznego:
 
-![Alt text](/readme-images/main-menu.png?raw=true "Main Menu")
-![Alt text](/readme-images/menu-rezerwacje.png?raw=true "Main Menu")
-![Alt text](/readme-images/menu-dodaj-rezerwacje.png?raw=true "Main Menu")
-![Alt text](/readme-images/menu-wyswietl-klientow.png?raw=true "Main Menu")
+![Alt text](/readme-files/main-menu.png?raw=true "Main Menu")
+![Alt text](/readme-files/menu-rezerwacje.png?raw=true "Main Menu")
+![Alt text](/readme-files/menu-dodaj-rezerwacje.png?raw=true "Main Menu")
+![Alt text](/readme-files/menu-wyswietl-klientow.png?raw=true "Main Menu")

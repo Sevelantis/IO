@@ -1,5 +1,5 @@
 # Software Egineering - Inżynieria Oprogramowania - projekt grupowy
-Studencka aplikacja biznesowa do zarządzania bazą danych wypożyczalni stacjonarnej. \n
+Studencka aplikacja biznesowa do zarządzania bazą danych wypożyczalni stacjonarnej. __
 Autorzy: Stanisław Franczyk, Oskroba Miron,
 Studenci III roku Informaytyki Politechniki Wrocławskiej.
 

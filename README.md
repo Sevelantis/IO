@@ -1,5 +1,7 @@
-# Software Egineering - Inżynieria Oprogramowania
+# Software Egineering - Inżynieria Oprogramowania - projekt grupowy
 Studencka aplikacja biznesowa do zarządzania bazą danych wypożyczalni stacjonarnej. 
+Autorzy: Stanisław Franczyk, Oskroba Miron,
+Studenci III roku Informaytyki Politechniki Wrocławskiej.
 
 ## Lista wymagań funkcjonalnych
 - Wyszukiwanie rezerwacji (należy sprecyzować dane rezerwacji)
@@ -28,6 +30,7 @@ Całość dokumentacji pracy znajduje się w pliku dokumentacja.pdf
 ## Użyte Technologie
 - Java 15.0.1 2020-10-20
 - Biblioteka: Java Swing
+- Debugowanie w IDE Intellij IDEA 2020.3
 - Testowanie JUnit, JMockit, Fitnesse, Selenium
 
 # GUI
